@@ -1,37 +1,27 @@
 package com.zuniorteam.lotto.core;
 
-import com.zuniorteam.lotto.vo.Lotto;
+import com.zuniorteam.lotto.vo.LottoNumber;
 
-import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class LottoOffice {
 
-    public static final int LOTTO_PRICE = 1000;
+    public Map<Integer, Integer> getResult(List<Lotto> lottos, List<LottoNumber> winNumbers) {
+        final Map<Integer, Integer> results = new HashMap<>();
 
-    private final LottoGenerator lottoGenerator;
-
-    public LottoOffice(LottoGenerator lottoGenerator) {
-        this.lottoGenerator = lottoGenerator;
-    }
-
-    public List<Lotto> buy(int money) {
-        validate(money);
-
-        final int size = money / LOTTO_PRICE;
-
-        final ArrayList<Lotto> lottos = new ArrayList<>();
-
-        for (int i = 0; i < size; i++) {
-            lottos.add(lottoGenerator.generate());
+        for (int i = 0; i <= Lotto.LOTTO_NUMBER_SIZE; i++) {
+            results.put(i, 0);
         }
 
-        return lottos;
+        for (Lotto lotto : lottos) {
+            final int result = lotto.match(winNumbers);
+            results.put(result, results.get(result) + 1);
+        }
+
+        return results;
     }
 
-    private void validate(int money) {
-        if (money % LOTTO_PRICE != 0) {
-            throw new IllegalArgumentException("금액이 나누어 떨어지지 않습니다");
-        }
-    }
 }

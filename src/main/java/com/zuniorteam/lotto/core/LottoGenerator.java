@@ -1,26 +1,29 @@
 package com.zuniorteam.lotto.core;
 
-import com.zuniorteam.lotto.vo.Lotto;
 import com.zuniorteam.lotto.vo.LottoNumber;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
+
+import static java.util.stream.IntStream.*;
 
 public class LottoGenerator {
 
-    private final NumberGenerator numberGenerator;
+    private static final List<LottoNumber> LOTTO_NUMBERS;
 
-    public LottoGenerator() {
-        this.numberGenerator = new NumberGenerator();
+    static {
+        LOTTO_NUMBERS = range(LottoNumber.MIN_VALUE, LottoNumber.MAX_VALUE)
+                .mapToObj(LottoNumber::new)
+                .collect(Collectors.toList());
     }
 
     public Lotto generate() {
-        final Set<LottoNumber> lottoNumbers = new HashSet<>();
+        Collections.shuffle(LOTTO_NUMBERS);
 
-        while (lottoNumbers.size() < Lotto.LOTTO_NUMBER_SIZE) {
-            final int rand = numberGenerator.rand(LottoNumber.MAX_VALUE);
-            lottoNumbers.add(new LottoNumber(rand));
-        }
+        final List<LottoNumber> lottoNumbers = LOTTO_NUMBERS.stream()
+                .limit(Lotto.LOTTO_NUMBER_SIZE)
+                .sorted()
+                .collect(Collectors.toList());
 
         return new Lotto(lottoNumbers);
     }
