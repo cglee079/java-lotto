@@ -1,13 +1,12 @@
 package com.zuniorteam.lotto;
 
 import com.zuniorteam.lotto.core.*;
-import com.zuniorteam.lotto.dto.GameResult;
+import com.zuniorteam.lotto.dto.LottoResult;
 import com.zuniorteam.lotto.view.console.InputView;
 import com.zuniorteam.lotto.view.console.OutputView;
 import com.zuniorteam.lotto.vo.LottoNumber;
 
 import java.util.List;
-import java.util.Map;
 
 public class LottoGameBoard {
 
@@ -19,15 +18,16 @@ public class LottoGameBoard {
 
     public void playGame() {
         final Integer insertedMoney = inputView.scanMoney();
-
         final List<Lotto> lottos = lottoSeller.sell(insertedMoney);
+
+        final LottoBuyer lottoBuyer = new LottoBuyer(insertedMoney, lottos);
 
         outputView.printLottos(lottos);
 
         final List<LottoNumber> winNumbers = inputView.scanWinNumber();
-        final Map<Integer, Integer> results = lottoOffice.getResult(lottos, winNumbers);
 
-        final GameResult gameResult = LottoCalculator.calculate(results, insertedMoney);
-        outputView.printGameResult(gameResult);
+        final LottoResult lottoResult = lottoOffice.getResult(lottoBuyer, winNumbers);
+
+        outputView.printLottoResult(lottoResult);
     }
 }

@@ -24,7 +24,6 @@ class LottoSellerTest {
         final Lotto lotto = Mockito.mock(Lotto.class);
         given(lottoGenerator.generate()).willReturn(lotto);
 
-
         //when
         final List<Lotto> lottos = new LottoSeller(lottoGenerator).sell(insertedMoney);
 

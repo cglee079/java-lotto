@@ -1,27 +1,47 @@
 package com.zuniorteam.lotto.core;
 
+import com.zuniorteam.lotto.dto.LottoResult;
+import com.zuniorteam.lotto.dto.MatchResult;
+import com.zuniorteam.lotto.util.MathUtil;
 import com.zuniorteam.lotto.vo.LottoNumber;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class LottoOffice {
 
-    public Map<Integer, Integer> getResult(List<Lotto> lottos, List<LottoNumber> winNumbers) {
-        final Map<Integer, Integer> results = new HashMap<>();
+    public static final Map<Integer, Long> PRIZE_MONEYS;
 
-        for (int i = 0; i <= Lotto.LOTTO_NUMBER_SIZE; i++) {
-            results.put(i, 0);
+    static {
+        final Map<Integer, Long> prizeMoneys = new HashMap<>();
+
+        prizeMoneys.put(0, 0L);
+        prizeMoneys.put(1, 0L);
+        prizeMoneys.put(2, 0L);
+        prizeMoneys.put(3, 5000L);
+        prizeMoneys.put(4, 50000L);
+        prizeMoneys.put(5, 1500000L);
+        prizeMoneys.put(6, 200000000000L);
+
+        PRIZE_MONEYS = Collections.unmodifiableMap(prizeMoneys);
+    }
+
+    public LottoResult getResult(LottoBuyer lottoBuyer, List<LottoNumber> winNumbers) {
+
+        final Integer insertedMoney = lottoBuyer.getInsertedMoney();
+        final Map<Integer, Integer> result = lottoBuyer.getResult(winNumbers);
+
+        List<MatchResult> matchResults = new ArrayList<>();
+        Long totalPrize = 0L;
+
+        for (Integer matchCount : result.keySet()) {
+            final Integer winnerCount = result.get(matchCount);
+            final Long prize = PRIZE_MONEYS.get(matchCount);
+
+            totalPrize += prize * winnerCount;
+            matchResults.add(new MatchResult(matchCount, prize, winnerCount));
         }
 
-        for (Lotto lotto : lottos) {
-            final int result = lotto.match(winNumbers);
-            results.put(result, results.get(result) + 1);
-        }
-
-        return results;
+        return new LottoResult(matchResults, MathUtil.divide(totalPrize, insertedMoney));
     }
 
 }

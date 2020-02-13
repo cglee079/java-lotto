@@ -12,7 +12,7 @@ public class LottoGenerator {
     private static final List<LottoNumber> LOTTO_NUMBERS;
 
     static {
-        LOTTO_NUMBERS = range(LottoNumber.MIN_VALUE, LottoNumber.MAX_VALUE)
+        LOTTO_NUMBERS = rangeClosed(LottoNumber.MIN_VALUE, LottoNumber.MAX_VALUE)
                 .mapToObj(LottoNumber::new)
                 .collect(Collectors.toList());
     }
@@ -22,7 +22,7 @@ public class LottoGenerator {
 
         final List<LottoNumber> lottoNumbers = LOTTO_NUMBERS.stream()
                 .limit(Lotto.LOTTO_NUMBER_SIZE)
-                .sorted()
+                .sorted(Comparator.comparingInt(LottoNumber::value))
                 .collect(Collectors.toList());
 
         return new Lotto(lottoNumbers);

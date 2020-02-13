@@ -1,14 +1,18 @@
 package com.zuniorteam.lotto.core;
 
-import com.zuniorteam.lotto.vo.LottoNumber;
+import com.zuniorteam.lotto.dto.LottoResult;
+import com.zuniorteam.lotto.util.MathUtil;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
@@ -16,23 +20,33 @@ class LottoOfficeTest {
 
     @DisplayName("생성")
     @Test
-    void testNewInstance01(){
+    void testNewInstance01() {
         assertDoesNotThrow((LottoOffice::new));
     }
 
     @DisplayName("결과 테스트")
     @Test
-    void testGetResult01(){
-        final Lotto lotto1 = Mockito.mock(Lotto.class);
-        final Lotto lotto2 = Mockito.mock(Lotto.class);
+    void testGetResult01() {
+        final int insertedMoney = 1000;
 
-        given(lotto1.match(any())).willReturn(3);
-        given(lotto2.match(any())).willReturn(4);
-        final Map<Integer, Integer> result = new LottoOffice().getResult(Arrays.asList(lotto1, lotto2), Collections.emptyList());
+        final LottoBuyer lottoBuyer = Mockito.mock(LottoBuyer.class);
+        Map<Integer, Integer> results = new HashMap<>();
+        results.put(1, 0);
+        results.put(2, 0);
+        results.put(3, 1);
+        results.put(4, 1);
+        results.put(5, 0);
+        results.put(6, 0);
 
-        assertThat(result.get(3)).isEqualTo(1);
-        assertThat(result.get(4)).isEqualTo(1);
+        given(lottoBuyer.getInsertedMoney()).willReturn(insertedMoney);
+        given(lottoBuyer.getResult(any())).willReturn(results);
 
+        final LottoOffice lottoOffice = new LottoOffice();
+        //then
+        final LottoResult result = lottoOffice.getResult(lottoBuyer, Collections.emptyList());
+
+        assertThat(result.getWinPercent()).isEqualTo(MathUtil.divide(LottoOffice.PRIZE_MONEYS.get(3) + LottoOffice.PRIZE_MONEYS.get(4), insertedMoney));
     }
+
 
 }

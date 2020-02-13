@@ -20,6 +20,10 @@ public class Lotto {
         this.lottoNumbers = lottoNumbers;
     }
 
+    public List<LottoNumber> getLottoNumbers() {
+        return lottoNumbers;
+    }
+
     private void validate(List<LottoNumber> lottoNumbers) {
         if (lottoNumbers.size() != LOTTO_NUMBER_SIZE) {
             throw new IllegalArgumentException("로또 숫자 사이즈가 다릅니다");
@@ -33,11 +37,11 @@ public class Lotto {
     public int match(List<LottoNumber> winNumbers) {
         int result = 0;
         for (LottoNumber winNumber : winNumbers) {
-            if (lottoNumbers.contains(winNumber)) {
-                result++;
-            }
+            result += Collections.frequency(this.lottoNumbers, winNumber);
         }
 
         return result;
     }
+
+
 }

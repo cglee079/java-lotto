@@ -25,6 +25,9 @@ public class LottoNumber {
         }
     }
 
+    public int value(){
+        return value;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -37,5 +40,10 @@ public class LottoNumber {
     @Override
     public int hashCode() {
         return Objects.hash(value);
+    }
+
+    @Override
+    public String toString() {
+        return value + "";
     }
 }

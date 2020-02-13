@@ -10,6 +10,8 @@ public class LottoSeller {
     private final LottoGenerator lottoGenerator;
 
     public LottoSeller(LottoGenerator lottoGenerator) {
+        assert lottoGenerator != null;
+
         this.lottoGenerator = lottoGenerator;
     }
 

@@ -61,19 +61,19 @@ class LottoTest {
 
     @DisplayName("로또 매치 테스트")
     @Test
-    void testMatch01(){
+    void testMatch01() {
 
         final List<LottoNumber> lottoNumbers = new ArrayList<>();
 
-        for(int i = 1; i < Lotto.LOTTO_NUMBER_SIZE + 1; i++){
+        for (int i = 1; i < Lotto.LOTTO_NUMBER_SIZE + 1; i++) {
             lottoNumbers.add(new LottoNumber(i));
         }
 
         final Lotto lotto = new Lotto(lottoNumbers);
 
-        final int match = lotto.match(Arrays.asList(new LottoNumber(2), new LottoNumber(3)));
+        final int match = lotto.match(Arrays.asList(new LottoNumber(1), new LottoNumber(2), new LottoNumber(3)));
 
-        assertThat(match).isEqualTo(2);
+        assertThat(match).isEqualTo(3);
 
     }
 }
