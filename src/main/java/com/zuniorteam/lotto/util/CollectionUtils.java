@@ -1,7 +1,6 @@
 package com.zuniorteam.lotto.util;
 
 import java.util.Collection;
-import java.util.Collections;
 
 public class CollectionUtils {
 

@@ -2,10 +2,11 @@ package com.zuniorteam.lotto.core;
 
 import com.zuniorteam.lotto.vo.LottoNumber;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class LottoBuyer {
 
@@ -24,15 +25,13 @@ public class LottoBuyer {
         return insertedMoney;
     }
 
-    public Map<Integer, Integer> matchLottos(List<LottoNumber> winNumbers) {
-        final Map<Integer, Integer> results = new HashMap<>();
-
-        for (int i = 0; i <= Lotto.LOTTO_NUMBER_SIZE; i++) {
-            results.put(i, 0);
-        }
+    public Map<Integer, Integer> checkWinning(List<LottoNumber> winningNumbers) {
+        final Map<Integer, Integer> results = IntStream.rangeClosed(0, Lotto.LOTTO_NUMBER_LENGTH)
+                .boxed()
+                .collect(Collectors.toMap(Function.identity(), t -> 0));
 
         for (Lotto lotto : lottos) {
-            final int result = lotto.match(winNumbers);
+            final int result = lotto.match(winningNumbers);
             results.put(result, results.get(result) + 1);
         }
 

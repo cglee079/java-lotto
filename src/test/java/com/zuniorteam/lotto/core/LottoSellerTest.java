@@ -6,7 +6,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.Mockito;
 
-import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -18,7 +17,7 @@ class LottoSellerTest {
     @DisplayName("생성")
     @Test
     void testNewInstance01(){
-        assertDoesNotThrow(() -> new LottoSeller(new LottoGenerator()));
+        assertDoesNotThrow(() -> new LottoSeller(new LottoMachine()));
     }
 
     @DisplayName("생성, 인자가 null")
@@ -34,13 +33,13 @@ class LottoSellerTest {
     void testSell01(int insertedMoney){
         //given
         int expectSize = insertedMoney / LottoSeller.LOTTO_PRICE;
-        final LottoGenerator lottoGenerator = Mockito.mock(LottoGenerator.class);
+        final LottoMachine lottoMachine = Mockito.mock(LottoMachine.class);
 
         final Lotto lotto = Mockito.mock(Lotto.class);
-        given(lottoGenerator.generate()).willReturn(lotto);
+        given(lottoMachine.generate()).willReturn(lotto);
 
         //when
-        final List<Lotto> lottos = new LottoSeller(lottoGenerator).sell(insertedMoney);
+        final List<Lotto> lottos = new LottoSeller(lottoMachine).sell(insertedMoney);
 
         //then
         assertThat(lottos.size()).isEqualTo(expectSize);
@@ -52,11 +51,11 @@ class LottoSellerTest {
     @ValueSource(ints = {0, 1231, 1999, 3001})
     void testSell02(int insertedMoney){
         //given
-        final LottoGenerator lottoGenerator = Mockito.mock(LottoGenerator.class);
+        final LottoMachine lottoMachine = Mockito.mock(LottoMachine.class);
 
         final Lotto lotto = Mockito.mock(Lotto.class);
-        given(lottoGenerator.generate()).willReturn(lotto);
+        given(lottoMachine.generate()).willReturn(lotto);
 
-        assertThrows(IllegalArgumentException.class, () ->  new LottoSeller(lottoGenerator).sell(insertedMoney));
+        assertThrows(IllegalArgumentException.class, () ->  new LottoSeller(lottoMachine).sell(insertedMoney));
     }
 }

@@ -26,20 +26,28 @@ public class LottoOffice {
     }
 
     public LottoResult getLottoResult(LottoBuyer lottoBuyer, List<LottoNumber> winningNumbers) {
+        validate(lottoBuyer);
+
         final List<MatchResult> matchResults = new ArrayList<>();
         final Integer insertedMoney = lottoBuyer.getInsertedMoney();
-        final Map<Integer, Integer> matchResult = lottoBuyer.matchLottos(winningNumbers);
+        final Map<Integer, Integer> matchLottos = lottoBuyer.checkWinning(winningNumbers);
         long totalPrize = 0L;
 
-        for (Integer matchCount : matchResult.keySet()) {
-            final Integer winnerCount = matchResult.get(matchCount);
+        for (Integer matchCount : matchLottos.keySet()) {
+            final Integer matchedLottoCount = matchLottos.get(matchCount);
             final Long prize = PRIZE_MONEYS.get(matchCount);
 
-            totalPrize += prize * winnerCount;
-            matchResults.add(new MatchResult(matchCount, prize, winnerCount));
+            totalPrize += prize * matchedLottoCount;
+            matchResults.add(new MatchResult(matchCount, prize, matchedLottoCount));
         }
 
-        return new LottoResult(matchResults, MathUtils.divide(totalPrize, insertedMoney));
+        return new LottoResult(MathUtils.divide(totalPrize, insertedMoney), matchResults);
+    }
+
+    private void validate(LottoBuyer lottoBuyer) {
+        if(Objects.isNull(lottoBuyer)){
+            throw new IllegalArgumentException("로또 구매자가 없습니다");
+        }
     }
 
 }

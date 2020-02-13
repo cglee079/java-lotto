@@ -10,7 +10,7 @@ import java.util.List;
 
 public class LottoGameBoard {
 
-    private final LottoSeller lottoSeller = new LottoSeller(new LottoGenerator());
+    private final LottoSeller lottoSeller = new LottoSeller(new LottoMachine());
     private final LottoOffice lottoOffice = new LottoOffice();
 
     private final InputView inputView = new InputView();

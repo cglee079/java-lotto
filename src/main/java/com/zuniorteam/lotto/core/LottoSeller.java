@@ -7,12 +7,12 @@ public class LottoSeller {
 
     public static final int LOTTO_PRICE = 1000;
 
-    private final LottoGenerator lottoGenerator;
+    private final LottoMachine lottoMachine;
 
-    public LottoSeller(LottoGenerator lottoGenerator) {
-        assert lottoGenerator != null;
+    public LottoSeller(LottoMachine lottoMachine) {
+        assert lottoMachine != null;
 
-        this.lottoGenerator = lottoGenerator;
+        this.lottoMachine = lottoMachine;
     }
 
     public List<Lotto> sell(int money) {
@@ -23,7 +23,7 @@ public class LottoSeller {
         final List<Lotto> lottos = new ArrayList<>();
 
         for (int i = 0; i < size; i++) {
-            lottos.add(lottoGenerator.generate());
+            lottos.add(lottoMachine.generate());
         }
 
         return lottos;

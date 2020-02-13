@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Lotto {
 
-    public static final int LOTTO_NUMBER_SIZE = 6;
+    public static final int LOTTO_NUMBER_LENGTH = 6;
 
     private final List<LottoNumber> lottoNumbers;
 
@@ -23,25 +23,27 @@ public class Lotto {
         return new ArrayList<>(lottoNumbers);
     }
 
+    public int match(List<LottoNumber> winningNumbers) {
+        validate(winningNumbers);
+
+        int result = 0;
+        for (LottoNumber winningNumber : winningNumbers) {
+            result += Collections.frequency(lottoNumbers, winningNumber);
+        }
+
+        return result;
+    }
+
     private void validate(List<LottoNumber> lottoNumbers) {
         assert lottoNumbers != null;
 
-        if (lottoNumbers.size() != LOTTO_NUMBER_SIZE) {
+        if (lottoNumbers.size() != LOTTO_NUMBER_LENGTH) {
             throw new IllegalArgumentException("로또 숫자 사이즈가 다릅니다");
         }
 
         if (!CollectionUtils.isUnique(lottoNumbers)) {
             throw new IllegalArgumentException("중복된 로또 번호가 있습니다");
         }
-    }
-
-    public int match(List<LottoNumber> winNumbers) {
-        int result = 0;
-        for (LottoNumber winNumber : winNumbers) {
-            result += Collections.frequency(this.lottoNumbers, winNumber);
-        }
-
-        return result;
     }
 
 

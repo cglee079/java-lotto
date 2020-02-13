@@ -4,12 +4,12 @@ public class MatchResult {
 
     private int matchCount;
     private long prize;
-    private int numberOfWinner;
+    private int lottoCount;
 
-    public MatchResult(int matchCount, long prize, int numberOfWinner) {
+    public MatchResult(int matchCount, long prize, int lottoCount) {
         this.matchCount = matchCount;
         this.prize = prize;
-        this.numberOfWinner = numberOfWinner;
+        this.lottoCount = lottoCount;
     }
 
     public int getMatchCount() {
@@ -20,7 +20,7 @@ public class MatchResult {
         return prize;
     }
 
-    public int getNumberOfWinner() {
-        return numberOfWinner;
+    public int getLottoCount() {
+        return lottoCount;
     }
 }

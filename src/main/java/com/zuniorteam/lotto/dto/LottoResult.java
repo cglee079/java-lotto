@@ -1,18 +1,16 @@
 package com.zuniorteam.lotto.dto;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 
 public class LottoResult {
 
-    private final List<MatchResult> results = new ArrayList<>();
+    private final List<MatchResult> results;
     private final double winPercent;
 
-    public LottoResult(List<MatchResult> results, double winPercent) {
-        this.results.addAll(results);
+    public LottoResult(double winPercent, List<MatchResult> results) {
         this.winPercent = winPercent;
+        this.results = results;
     }
 
     public List<MatchResult> getResults() {

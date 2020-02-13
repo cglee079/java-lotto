@@ -6,18 +6,18 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
-class LottoGeneratorTest {
+class LottoMachineTest {
 
     @DisplayName("생성")
     @Test
     void testNewInstance(){
-        assertDoesNotThrow(LottoGenerator::new);
+        assertDoesNotThrow(LottoMachine::new);
     }
 
     @DisplayName("로또 발급 테스트")
     @Test
     public void testGenerate(){
-        assertDoesNotThrow(() -> new LottoGenerator().generate());
+        assertDoesNotThrow(() -> new LottoMachine().generate());
     }
 
 }

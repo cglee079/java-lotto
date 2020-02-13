@@ -21,7 +21,7 @@ public class InputView {
     }
 
     public List<LottoNumber> scanWinningNumbers() {
-        System.out.println("지난주 당첨 번호를 입력해주세요");
+        System.out.println("지난주 당첨 번호를 입력해주세요. ex) 1,2,3,4,5,6");
 
         final String line = SCANNER.nextLine();
 
