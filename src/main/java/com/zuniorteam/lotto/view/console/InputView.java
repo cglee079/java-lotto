@@ -20,7 +20,7 @@ public class InputView {
         return insertedMoney;
     }
 
-    public List<LottoNumber> scanWinNumber() {
+    public List<LottoNumber> scanWinningNumbers() {
         System.out.println("지난주 당첨 번호를 입력해주세요");
 
         final String line = SCANNER.nextLine();

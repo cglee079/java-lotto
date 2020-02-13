@@ -38,7 +38,7 @@ class LottoOfficeTest {
         results.put(6, 0);
 
         given(lottoBuyer.getInsertedMoney()).willReturn(insertedMoney);
-        given(lottoBuyer.getResult(any())).willReturn(results);
+        given(lottoBuyer.matchLottos(any())).willReturn(results);
 
         final LottoOffice lottoOffice = new LottoOffice();
         //then

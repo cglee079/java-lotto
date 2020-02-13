@@ -18,15 +18,13 @@ public class LottoGameBoard {
 
     public void playGame() {
         final Integer insertedMoney = inputView.scanMoney();
-        final List<Lotto> lottos = lottoSeller.sell(insertedMoney);
+        final LottoBuyer lottoBuyer = new LottoBuyer(insertedMoney, lottoSeller.sell(insertedMoney));
 
-        final LottoBuyer lottoBuyer = new LottoBuyer(insertedMoney, lottos);
+        outputView.printLottos(lottoBuyer.getLottoNumbers());
 
-        outputView.printLottos(lottos);
+        final List<LottoNumber> winningNumbers = inputView.scanWinningNumbers();
 
-        final List<LottoNumber> winNumbers = inputView.scanWinNumber();
-
-        final LottoResult lottoResult = lottoOffice.getLottoResult(lottoBuyer, winNumbers);
+        final LottoResult lottoResult = lottoOffice.getLottoResult(lottoBuyer, winningNumbers);
 
         outputView.printLottoResult(lottoResult);
     }

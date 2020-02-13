@@ -25,16 +25,14 @@ public class LottoOffice {
         PRIZE_MONEYS = Collections.unmodifiableMap(prizeMoneys);
     }
 
-    public LottoResult getLottoResult(LottoBuyer lottoBuyer, List<LottoNumber> winNumbers) {
-
+    public LottoResult getLottoResult(LottoBuyer lottoBuyer, List<LottoNumber> winningNumbers) {
+        final List<MatchResult> matchResults = new ArrayList<>();
         final Integer insertedMoney = lottoBuyer.getInsertedMoney();
-        final Map<Integer, Integer> result = lottoBuyer.getResult(winNumbers);
-
-        List<MatchResult> matchResults = new ArrayList<>();
+        final Map<Integer, Integer> matchResult = lottoBuyer.matchLottos(winningNumbers);
         long totalPrize = 0L;
 
-        for (Integer matchCount : result.keySet()) {
-            final Integer winnerCount = result.get(matchCount);
+        for (Integer matchCount : matchResult.keySet()) {
+            final Integer winnerCount = matchResult.get(matchCount);
             final Long prize = PRIZE_MONEYS.get(matchCount);
 
             totalPrize += prize * winnerCount;

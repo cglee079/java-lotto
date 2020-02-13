@@ -1,10 +1,7 @@
 package com.zuniorteam.lotto.core;
 
-import com.zuniorteam.lotto.dto.LottoResult;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.Mockito;
 
 import java.util.Arrays;
@@ -43,7 +40,7 @@ class LottoBuyerTest {
         given(lotto1.match(any())).willReturn(3);
         given(lotto2.match(any())).willReturn(4);
         final LottoBuyer lottoBuyer = new LottoBuyer(2000, Arrays.asList(lotto1, lotto2));
-        final Map<Integer, Integer> result = lottoBuyer.getResult(Collections.emptyList());
+        final Map<Integer, Integer> result = lottoBuyer.matchLottos(Collections.emptyList());
 
         assertThat(result.get(3)).isEqualTo(1);
         assertThat(result.get(4)).isEqualTo(1);

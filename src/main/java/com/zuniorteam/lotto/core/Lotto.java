@@ -14,8 +14,6 @@ public class Lotto {
     private final List<LottoNumber> lottoNumbers;
 
     public Lotto(List<LottoNumber> lottoNumbers) {
-        assert lottoNumbers != null;
-
         validate(lottoNumbers);
 
         this.lottoNumbers = Collections.unmodifiableList(lottoNumbers);
@@ -26,6 +24,8 @@ public class Lotto {
     }
 
     private void validate(List<LottoNumber> lottoNumbers) {
+        assert lottoNumbers != null;
+
         if (lottoNumbers.size() != LOTTO_NUMBER_SIZE) {
             throw new IllegalArgumentException("로또 숫자 사이즈가 다릅니다");
         }

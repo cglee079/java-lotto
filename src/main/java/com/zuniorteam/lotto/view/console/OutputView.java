@@ -1,16 +1,16 @@
 package com.zuniorteam.lotto.view.console;
 
-import com.zuniorteam.lotto.core.Lotto;
 import com.zuniorteam.lotto.dto.LottoResult;
 import com.zuniorteam.lotto.dto.MatchResult;
+import com.zuniorteam.lotto.vo.LottoNumber;
 
 import java.util.List;
 
 public class OutputView {
 
-    public void printLottos(List<Lotto> lottos) {
-        for (Lotto lotto : lottos) {
-            System.out.println(lotto.getLottoNumbers());
+    public void printLottos(List<List<LottoNumber>> lottos) {
+        for (List<LottoNumber> lotto : lottos) {
+            System.out.println(lotto);
         }
     }
 
