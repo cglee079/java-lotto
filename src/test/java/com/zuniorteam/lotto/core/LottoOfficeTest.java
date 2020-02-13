@@ -1,12 +1,11 @@
 package com.zuniorteam.lotto.core;
 
 import com.zuniorteam.lotto.dto.LottoResult;
-import com.zuniorteam.lotto.util.MathUtil;
+import com.zuniorteam.lotto.util.MathUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -43,9 +42,9 @@ class LottoOfficeTest {
 
         final LottoOffice lottoOffice = new LottoOffice();
         //then
-        final LottoResult result = lottoOffice.getResult(lottoBuyer, Collections.emptyList());
+        final LottoResult result = lottoOffice.getLottoResult(lottoBuyer, Collections.emptyList());
 
-        assertThat(result.getWinPercent()).isEqualTo(MathUtil.divide(LottoOffice.PRIZE_MONEYS.get(3) + LottoOffice.PRIZE_MONEYS.get(4), insertedMoney));
+        assertThat(result.getWinPercent()).isEqualTo(MathUtils.divide(LottoOffice.PRIZE_MONEYS.get(3) + LottoOffice.PRIZE_MONEYS.get(4), insertedMoney));
     }
 
 

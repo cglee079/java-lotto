@@ -2,7 +2,7 @@ package com.zuniorteam.lotto.core;
 
 import com.zuniorteam.lotto.dto.LottoResult;
 import com.zuniorteam.lotto.dto.MatchResult;
-import com.zuniorteam.lotto.util.MathUtil;
+import com.zuniorteam.lotto.util.MathUtils;
 import com.zuniorteam.lotto.vo.LottoNumber;
 
 import java.util.*;
@@ -25,13 +25,13 @@ public class LottoOffice {
         PRIZE_MONEYS = Collections.unmodifiableMap(prizeMoneys);
     }
 
-    public LottoResult getResult(LottoBuyer lottoBuyer, List<LottoNumber> winNumbers) {
+    public LottoResult getLottoResult(LottoBuyer lottoBuyer, List<LottoNumber> winNumbers) {
 
         final Integer insertedMoney = lottoBuyer.getInsertedMoney();
         final Map<Integer, Integer> result = lottoBuyer.getResult(winNumbers);
 
         List<MatchResult> matchResults = new ArrayList<>();
-        Long totalPrize = 0L;
+        long totalPrize = 0L;
 
         for (Integer matchCount : result.keySet()) {
             final Integer winnerCount = result.get(matchCount);
@@ -41,7 +41,7 @@ public class LottoOffice {
             matchResults.add(new MatchResult(matchCount, prize, winnerCount));
         }
 
-        return new LottoResult(matchResults, MathUtil.divide(totalPrize, insertedMoney));
+        return new LottoResult(matchResults, MathUtils.divide(totalPrize, insertedMoney));
     }
 
 }

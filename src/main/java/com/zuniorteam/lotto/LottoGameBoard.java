@@ -26,7 +26,7 @@ public class LottoGameBoard {
 
         final List<LottoNumber> winNumbers = inputView.scanWinNumber();
 
-        final LottoResult lottoResult = lottoOffice.getResult(lottoBuyer, winNumbers);
+        final LottoResult lottoResult = lottoOffice.getLottoResult(lottoBuyer, winNumbers);
 
         outputView.printLottoResult(lottoResult);
     }

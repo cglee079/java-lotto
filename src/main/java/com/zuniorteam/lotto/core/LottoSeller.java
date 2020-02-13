@@ -30,6 +30,10 @@ public class LottoSeller {
     }
 
     private void validate(int money) {
+        if(money == 0){
+            throw new IllegalArgumentException("금액이 0원 입니다");
+        }
+
         if (money % LOTTO_PRICE != 0) {
             throw new IllegalArgumentException("금액이 나누어 떨어지지 않습니다");
         }

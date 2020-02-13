@@ -1,10 +1,12 @@
 package com.zuniorteam.lotto.core;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.Mockito;
 
+import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -13,10 +15,23 @@ import static org.mockito.BDDMockito.given;
 
 class LottoSellerTest {
 
-    @DisplayName("로또 구입 테스트")
+    @DisplayName("생성")
+    @Test
+    void testNewInstance01(){
+        assertDoesNotThrow(() -> new LottoSeller(new LottoGenerator()));
+    }
+
+    @DisplayName("생성, 인자가 null")
+    @Test
+    void testNewInstance02(){
+        assertThrows(AssertionError.class, () -> new LottoSeller(null));
+    }
+
+
+    @DisplayName("로또 판매")
     @ParameterizedTest
     @ValueSource(ints = {1000, 2000, 3000})
-    void testBuy01(int insertedMoney){
+    void testSell01(int insertedMoney){
         //given
         int expectSize = insertedMoney / LottoSeller.LOTTO_PRICE;
         final LottoGenerator lottoGenerator = Mockito.mock(LottoGenerator.class);
@@ -32,10 +47,10 @@ class LottoSellerTest {
     }
 
 
-    @DisplayName("로또 구입 테스트, 실패")
+    @DisplayName("로또 판매, 금액이 나눠어 떨어지지 않거나, 0인경우")
     @ParameterizedTest
-    @ValueSource(ints = {1231, 1999, 3001})
-    void testBuy02(int insertedMoney){
+    @ValueSource(ints = {0, 1231, 1999, 3001})
+    void testSell02(int insertedMoney){
         //given
         final LottoGenerator lottoGenerator = Mockito.mock(LottoGenerator.class);
 

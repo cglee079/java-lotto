@@ -3,6 +3,7 @@ package com.zuniorteam.lotto.core;
 import com.zuniorteam.lotto.util.CollectionUtils;
 import com.zuniorteam.lotto.vo.LottoNumber;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -17,11 +18,11 @@ public class Lotto {
 
         validate(lottoNumbers);
 
-        this.lottoNumbers = lottoNumbers;
+        this.lottoNumbers = Collections.unmodifiableList(lottoNumbers);
     }
 
     public List<LottoNumber> getLottoNumbers() {
-        return lottoNumbers;
+        return new ArrayList<>(lottoNumbers);
     }
 
     private void validate(List<LottoNumber> lottoNumbers) {

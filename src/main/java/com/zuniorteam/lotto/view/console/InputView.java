@@ -13,17 +13,19 @@ public class InputView {
 
     public Integer scanMoney() {
         System.out.println("구입금액을 입력해주세요.");
-        return SCANNER.nextInt();
+        final int insertedMoney = SCANNER.nextInt();
+
+        SCANNER.nextLine();
+
+        return insertedMoney;
     }
 
     public List<LottoNumber> scanWinNumber() {
         System.out.println("지난주 당첨 번호를 입력해주세요");
-        //TODO
-        //
-        SCANNER.nextLine();
-        final String s = SCANNER.nextLine();
 
-        return Arrays.stream(s.split(","))
+        final String line = SCANNER.nextLine();
+
+        return Arrays.stream(line.split(","))
                 .map(String::trim)
                 .map(Integer::parseInt)
                 .map(LottoNumber::new)
