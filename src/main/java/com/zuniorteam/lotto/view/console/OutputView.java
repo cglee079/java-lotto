@@ -17,7 +17,7 @@ public class OutputView {
     public void printLottoResult(LottoResult lottoResult) {
         System.out.println("당첨결과");
 
-        for (MatchResult matchResult : lottoResult.getResults()) {
+        for (MatchResult matchResult : lottoResult.getMatchResults()) {
             System.out.println(String.format("%s개 (%,d원) - %s", matchResult.getMatchCount(), matchResult.getPrize(), matchResult.getLottoCount()));
         }
 

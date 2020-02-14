@@ -41,7 +41,7 @@ public class LottoOffice {
             matchResults.add(new MatchResult(matchCount, prize, matchedLottoCount));
         }
 
-        return new LottoResult(MathUtils.divide(totalPrize, insertedMoney), matchResults);
+        return new LottoResult(matchResults, MathUtils.divide(totalPrize, insertedMoney));
     }
 
     private void validate(LottoBuyer lottoBuyer) {

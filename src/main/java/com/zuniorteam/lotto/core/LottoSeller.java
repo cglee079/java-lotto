@@ -2,6 +2,8 @@ package com.zuniorteam.lotto.core;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class LottoSeller {
 
@@ -18,15 +20,12 @@ public class LottoSeller {
     public List<Lotto> sell(int money) {
         validate(money);
 
-        final int size = money / LOTTO_PRICE;
+        final int numberOfLottos = money / LOTTO_PRICE;
 
-        final List<Lotto> lottos = new ArrayList<>();
+        return IntStream.range(0, numberOfLottos)
+                .mapToObj(i -> lottoMachine.generate())
+                .collect(Collectors.toList());
 
-        for (int i = 0; i < size; i++) {
-            lottos.add(lottoMachine.generate());
-        }
-
-        return lottos;
     }
 
     private void validate(int money) {

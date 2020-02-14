@@ -5,16 +5,16 @@ import java.util.List;
 
 public class LottoResult {
 
-    private final List<MatchResult> results;
+    private final List<MatchResult> matchResults;
     private final double winPercent;
 
-    public LottoResult(double winPercent, List<MatchResult> results) {
+    public LottoResult(List<MatchResult> matchResults, double winPercent) {
         this.winPercent = winPercent;
-        this.results = results;
+        this.matchResults = matchResults;
     }
 
-    public List<MatchResult> getResults() {
-        return results;
+    public List<MatchResult> getMatchResults() {
+        return matchResults;
     }
 
     public double getWinPercent() {

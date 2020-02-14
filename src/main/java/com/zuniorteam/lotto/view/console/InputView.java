@@ -9,7 +9,8 @@ import java.util.stream.Collectors;
 
 public class InputView {
 
-    public static final Scanner SCANNER = new Scanner(System.in);
+    private final Scanner SCANNER = new Scanner(System.in);
+    private static final String SPLIT_TOKEN = ",";
 
     public Integer scanMoney() {
         System.out.println("구입금액을 입력해주세요.");
@@ -25,7 +26,7 @@ public class InputView {
 
         final String line = SCANNER.nextLine();
 
-        return Arrays.stream(line.split(","))
+        return Arrays.stream(line.split(SPLIT_TOKEN))
                 .map(String::trim)
                 .map(Integer::parseInt)
                 .map(LottoNumber::new)
