@@ -40,7 +40,7 @@ class LottoBuyerTest {
         given(lotto1.match(any())).willReturn(3);
         given(lotto2.match(any())).willReturn(4);
         final LottoBuyer lottoBuyer = new LottoBuyer(2000, Arrays.asList(lotto1, lotto2));
-        final Map<Integer, Integer> result = lottoBuyer.checkWinning(Collections.emptyList());
+        final Map<Integer, Integer> result = lottoBuyer.checkWinning(null);
 
         assertThat(result.get(3)).isEqualTo(1);
         assertThat(result.get(4)).isEqualTo(1);
