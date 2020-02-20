@@ -76,7 +76,7 @@ class LottoTest {
         winningNumbers.add(new LottoNumber(11));
         winningNumbers.add(new LottoNumber(12));
 
-        final int match = lotto.match(winningNumbers);
+        final int match = lotto.match(new WinningLotto(new Lotto(winningNumbers)));
 
         assertThat(match).isEqualTo(3);
 

@@ -11,8 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
@@ -43,15 +42,19 @@ class LottoOfficeTest {
 
         final LottoOffice lottoOffice = new LottoOffice();
         //then
-        final LottoResult result = lottoOffice.getLottoResult(lottoBuyer, Collections.emptyList());
+        final LottoResult result = lottoOffice.getLottoResult(lottoBuyer, Mockito.mock(WinningLotto.class));
 
         assertThat(result.getWinPercent()).isEqualTo(MathUtils.divide(Prize.ofByMatchCount(3).getMoney() + Prize.ofByMatchCount(4).getMoney(), insertedMoney));
     }
 
-    @DisplayName("로또 결과 조회, 구매자가 null")
+    @DisplayName("로또 결과 조회, 구매자가 또는 당첨번호가 null")
     @Test
     void testGetLottoResult02() {
-        assertThrows(IllegalArgumentException.class, () -> new LottoOffice().getLottoResult(null, Collections.emptyList()));
+        assertAll(
+                () -> assertThrows(IllegalArgumentException.class, () -> new LottoOffice().getLottoResult(null, Mockito.mock(WinningLotto.class))),
+                () -> assertThrows(IllegalArgumentException.class, () -> new LottoOffice().getLottoResult(Mockito.mock(LottoBuyer.class), null)),
+                () -> assertThrows(IllegalArgumentException.class, () -> new LottoOffice().getLottoResult(null, null))
+        );
     }
 
 

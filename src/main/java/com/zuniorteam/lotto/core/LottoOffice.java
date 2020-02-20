@@ -9,7 +9,7 @@ import java.util.*;
 public class LottoOffice {
 
     public LottoResult getLottoResult(LottoBuyer lottoBuyer, WinningLotto winningLotto) {
-        validate(lottoBuyer);
+        validate(lottoBuyer, winningLotto);
 
         final List<MatchResult> matchResults = new ArrayList<>();
         final Integer insertedMoney = lottoBuyer.getInsertedMoney();
@@ -27,9 +27,13 @@ public class LottoOffice {
         return new LottoResult(matchResults, MathUtils.divide(totalPrize, insertedMoney));
     }
 
-    private void validate(LottoBuyer lottoBuyer) {
+    private void validate(LottoBuyer lottoBuyer, WinningLotto winningLotto) {
         if(Objects.isNull(lottoBuyer)){
             throw new IllegalArgumentException("로또 구매자가 없습니다");
+        }
+
+        if(Objects.isNull(winningLotto)){
+            throw new IllegalArgumentException("당첨 번호가 없습니다");
         }
     }
 
