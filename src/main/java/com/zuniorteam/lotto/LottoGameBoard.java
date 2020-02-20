@@ -5,6 +5,7 @@ import com.zuniorteam.lotto.dto.LottoResult;
 import com.zuniorteam.lotto.view.console.InputView;
 import com.zuniorteam.lotto.view.console.OutputView;
 import com.zuniorteam.lotto.vo.LottoNumber;
+import com.zuniorteam.lotto.render.InputRender;
 
 import java.util.List;
 
@@ -22,10 +23,11 @@ public class LottoGameBoard {
 
         outputView.printLottos(lottoBuyer.getLottoNumbers());
 
-        final List<LottoNumber> winningNumbers = inputView.scanWinningNumbers();
+        final WinningLotto winningLotto = InputRender.getWinningLotto(inputView.scanWinningNumbers());
 
-        final LottoResult lottoResult = lottoOffice.getLottoResult(lottoBuyer, winningNumbers);
+        final LottoResult lottoResult = lottoOffice.getLottoResult(lottoBuyer, winningLotto);
 
         outputView.printLottoResult(lottoResult);
     }
+
 }

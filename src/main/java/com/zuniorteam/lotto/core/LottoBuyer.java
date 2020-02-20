@@ -25,13 +25,13 @@ public class LottoBuyer {
         return insertedMoney;
     }
 
-    public Map<Integer, Integer> checkWinning(List<LottoNumber> winningNumbers) {
+    public Map<Integer, Integer> checkWinning(WinningLotto winningLotto) {
         final Map<Integer, Integer> results = IntStream.rangeClosed(0, Lotto.LOTTO_NUMBER_LENGTH)
                 .boxed()
-                .collect(Collectors.toMap(Function.identity(), t -> 0));
+                .collect(Collectors.toMap(i -> i, t -> 0));
 
         for (Lotto lotto : lottos) {
-            final int result = lotto.match(winningNumbers);
+            final int result = lotto.match(winningLotto);
             results.put(result, results.get(result) + 1);
         }
 

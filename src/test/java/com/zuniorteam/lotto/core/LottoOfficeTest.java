@@ -45,7 +45,7 @@ class LottoOfficeTest {
         //then
         final LottoResult result = lottoOffice.getLottoResult(lottoBuyer, Collections.emptyList());
 
-        assertThat(result.getWinPercent()).isEqualTo(MathUtils.divide(LottoOffice.PRIZE_MONEYS.get(3) + LottoOffice.PRIZE_MONEYS.get(4), insertedMoney));
+        assertThat(result.getWinPercent()).isEqualTo(MathUtils.divide(Prize.ofByMatchCount(3).getMoney() + Prize.ofByMatchCount(4).getMoney(), insertedMoney));
     }
 
     @DisplayName("로또 결과 조회, 구매자가 null")
