@@ -29,8 +29,8 @@ public class LottoSeller {
     }
 
     private void validate(int money) {
-        if(money == 0){
-            throw new IllegalArgumentException("금액이 0원 입니다");
+        if(money <= 0){
+            throw new IllegalArgumentException("금액은 0원 이상이어야합니다");
         }
 
         if (money % LOTTO_PRICE != 0) {
