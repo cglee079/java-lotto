@@ -23,12 +23,12 @@ public class Lotto {
         return new ArrayList<>(lottoNumbers);
     }
 
-    public int match(List<LottoNumber> winningNumbers) {
-        validate(winningNumbers);
+    public int match(WinningLotto winningLotto) {
+        final List<LottoNumber> winningNumbers = winningLotto.getLottoNumbers();
 
         int result = 0;
         for (LottoNumber winningNumber : winningNumbers) {
-            result += Collections.frequency(lottoNumbers, winningNumber);
+            result += Collections.frequency(this.lottoNumbers, winningNumber);
         }
 
         return result;

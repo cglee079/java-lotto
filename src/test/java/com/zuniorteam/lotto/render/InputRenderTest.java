@@ -1,6 +1,5 @@
 package com.zuniorteam.lotto.render;
 
-import com.zuniorteam.lotto.render.InputRender;
 import com.zuniorteam.lotto.vo.LottoNumber;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -19,7 +18,7 @@ class InputRenderTest {
     @ValueSource(strings = {"1,2,3", "1, 2, 3", "1,2, 3"})
     void testGetWinningNumbers(String input){
         //when
-        final List<LottoNumber> winningNumbers = InputRender.getWinningNumbers(input);
+        final List<LottoNumber> winningNumbers = InputRender.getWinningLotto(input);
 
         //then
         assertThat(winningNumbers.size()).isEqualTo(3);

@@ -3,18 +3,17 @@ package com.zuniorteam.lotto.core;
 import com.zuniorteam.lotto.dto.LottoResult;
 import com.zuniorteam.lotto.dto.MatchResult;
 import com.zuniorteam.lotto.util.MathUtils;
-import com.zuniorteam.lotto.vo.LottoNumber;
 
 import java.util.*;
 
 public class LottoOffice {
 
-    public LottoResult getLottoResult(LottoBuyer lottoBuyer, List<LottoNumber> winningNumbers) {
+    public LottoResult getLottoResult(LottoBuyer lottoBuyer, WinningLotto winningLotto) {
         validate(lottoBuyer);
 
         final List<MatchResult> matchResults = new ArrayList<>();
         final Integer insertedMoney = lottoBuyer.getInsertedMoney();
-        final Map<Integer, Integer> matchLottos = lottoBuyer.checkWinning(winningNumbers);
+        final Map<Integer, Integer> matchLottos = lottoBuyer.checkWinning(winningLotto);
         long totalPrize = 0L;
 
         for (Integer matchCount : matchLottos.keySet()) {
