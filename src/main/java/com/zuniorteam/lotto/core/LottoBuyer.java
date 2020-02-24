@@ -2,11 +2,14 @@ package com.zuniorteam.lotto.core;
 
 import com.zuniorteam.lotto.vo.LottoNumber;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.toMap;
 
 public class LottoBuyer {
 
@@ -25,14 +28,13 @@ public class LottoBuyer {
         return insertedMoney;
     }
 
-    public Map<Integer, Integer> checkWinning(WinningLotto winningLotto) {
-        final Map<Integer, Integer> results = IntStream.rangeClosed(0, Lotto.LOTTO_NUMBER_LENGTH)
-                .boxed()
-                .collect(Collectors.toMap(i -> i, t -> 0));
+    public Map<Prize, Integer> checkWinning(WinningLotto winningLotto) {
+        final Map<Prize, Integer> results = new TreeMap<>(Comparator.comparingInt(Prize::getRank).reversed());
+        results.putAll(Stream.of(Prize.values()).collect(toMap(t -> t, t -> 0)));
 
         for (Lotto lotto : lottos) {
-            final int result = lotto.match(winningLotto);
-            results.put(result, results.get(result) + 1);
+            final Prize prize = winningLotto.match(lotto);
+            results.put(prize, results.get(prize) + 1);
         }
 
         return results;

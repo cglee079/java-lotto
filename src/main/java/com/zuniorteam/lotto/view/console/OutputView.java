@@ -18,11 +18,21 @@ public class OutputView {
         System.out.println("당첨결과");
 
         for (MatchResult matchResult : lottoResult.getMatchResults()) {
-            System.out.println(String.format("%s개 (%,d원) - %s", matchResult.getMatchCount(), matchResult.getPrize(), matchResult.getLottoCount()));
+            final String prizeRuleInfo = getPrizeRuleOutput(matchResult);
+            final String prizeMoneyOutput = getPrizeMoney(matchResult.getPrizeMoney());
+            System.out.println(prizeRuleInfo + " " + prizeMoneyOutput + " - " + matchResult.getLottoCount());
         }
 
         System.out.println("---------------");
         System.out.println(String.format("승률 %.2f", lottoResult.getWinPercent()));
 
+    }
+
+    private String getPrizeRuleOutput(MatchResult matchResult) {
+        return String.format("%s개 %s", matchResult.getMatchCount(), matchResult.getHasBonus() ? "보너스볼 포함" : "");
+    }
+
+    private String getPrizeMoney(Long prizeMoney) {
+        return String.format("(%,d원)", prizeMoney);
     }
 }

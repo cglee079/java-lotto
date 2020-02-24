@@ -6,7 +6,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,25 +25,28 @@ class LottoOfficeTest {
     @DisplayName("로또 결과 조회")
     @Test
     void testGetLottoResult01() {
+        //given
         final int insertedMoney = 1000;
 
         final LottoBuyer lottoBuyer = Mockito.mock(LottoBuyer.class);
-        final Map<Integer, Integer> results = new HashMap<>();
-        results.put(1, 0);
-        results.put(2, 0);
-        results.put(3, 1);
-        results.put(4, 1);
-        results.put(5, 0);
-        results.put(6, 0);
+        final Map<Prize, Integer> results = new HashMap<>();
+        results.put(Prize.SEVENTH_PRIZE, 0);
+        results.put(Prize.SIXTH_PRIZE, 0);
+        results.put(Prize.FIFTH_PRIZE, 1);
+        results.put(Prize.FOURTH_PRIZE, 1);
+        results.put(Prize.THIRD_PRIZE, 0);
+        results.put(Prize.WINNER, 0);
 
         given(lottoBuyer.getInsertedMoney()).willReturn(insertedMoney);
         given(lottoBuyer.checkWinning(any())).willReturn(results);
 
-        final LottoOffice lottoOffice = new LottoOffice();
-        //then
-        final LottoResult result = lottoOffice.getLottoResult(lottoBuyer, Mockito.mock(WinningLotto.class));
+        final long totalPrize = Prize.ofByMatchCountAndBonus(3, false).getMoney() + Prize.ofByMatchCountAndBonus(4, false).getMoney();
 
-        assertThat(result.getWinPercent()).isEqualTo(MathUtils.divide(Prize.ofByMatchCount(3).getMoney() + Prize.ofByMatchCount(4).getMoney(), insertedMoney));
+        //when
+        final LottoResult result = new LottoOffice().getLottoResult(lottoBuyer, Mockito.mock(WinningLotto.class));
+
+        //then
+        assertThat(result.getWinPercent()).isEqualTo(MathUtils.divide(totalPrize, insertedMoney));
     }
 
     @DisplayName("로또 결과 조회, 구매자가 또는 당첨번호가 null")

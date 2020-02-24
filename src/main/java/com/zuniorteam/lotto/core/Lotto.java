@@ -3,6 +3,7 @@ package com.zuniorteam.lotto.core;
 import com.zuniorteam.lotto.util.CollectionUtils;
 import com.zuniorteam.lotto.vo.LottoNumber;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -23,15 +24,18 @@ public class Lotto {
         return new ArrayList<>(lottoNumbers);
     }
 
-    public int match(WinningLotto winningLotto) {
-        final List<LottoNumber> winningNumbers = winningLotto.getLottoNumbers();
+    public boolean contains(LottoNumber bonusNumber) {
+        return lottoNumbers.contains(bonusNumber);
+    }
+
+    public Prize match(Lotto winningLotto, LottoNumber bonusNumber) {
 
         int result = 0;
-        for (LottoNumber winningNumber : winningNumbers) {
+        for (LottoNumber winningNumber : winningLotto.getLottoNumbers()) {
             result += Collections.frequency(this.lottoNumbers, winningNumber);
         }
 
-        return result;
+        return Prize.ofByMatchCountAndBonus(result, lottoNumbers.contains(bonusNumber));
     }
 
     private void validate(List<LottoNumber> lottoNumbers) {
@@ -45,6 +49,5 @@ public class Lotto {
             throw new IllegalArgumentException("중복된 로또 번호가 있습니다");
         }
     }
-
 
 }

@@ -76,9 +76,12 @@ class LottoTest {
         winningNumbers.add(new LottoNumber(11));
         winningNumbers.add(new LottoNumber(12));
 
-        final int match = lotto.match(new WinningLotto(new Lotto(winningNumbers)));
+        final Lotto winningLotto = new Lotto(winningNumbers);
+        final LottoNumber bonusNumber = new LottoNumber(10);
 
-        assertThat(match).isEqualTo(3);
+        final Prize match = lotto.match(winningLotto, bonusNumber);
+
+        assertThat(match).isEqualTo(Prize.FIFTH_PRIZE);
 
     }
 }

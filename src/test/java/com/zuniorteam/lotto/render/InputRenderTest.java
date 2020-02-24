@@ -1,5 +1,6 @@
 package com.zuniorteam.lotto.render;
 
+import com.zuniorteam.lotto.core.Lotto;
 import com.zuniorteam.lotto.core.WinningLotto;
 import com.zuniorteam.lotto.vo.LottoNumber;
 import org.junit.jupiter.api.DisplayName;
@@ -29,16 +30,12 @@ class InputRenderTest {
         expectWinningNumbers.add(new LottoNumber(6));
 
         //when
-        final WinningLotto winningNumbers = InputRender.getWinningLotto(input);
+        final Lotto winningNumbers = InputRender.getWinningLotto(input);
 
         //then
         final List<LottoNumber> lottoNumbers = winningNumbers.getLottoNumbers();
         assertThat(lottoNumbers.size()).isEqualTo(expectWinningNumbers.size());
-
-
-
         assertThat(lottoNumbers).containsAll(expectWinningNumbers);
-
     }
 
 }

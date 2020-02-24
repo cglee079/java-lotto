@@ -2,12 +2,10 @@ package com.zuniorteam.lotto;
 
 import com.zuniorteam.lotto.core.*;
 import com.zuniorteam.lotto.dto.LottoResult;
+import com.zuniorteam.lotto.render.InputRender;
 import com.zuniorteam.lotto.view.console.InputView;
 import com.zuniorteam.lotto.view.console.OutputView;
 import com.zuniorteam.lotto.vo.LottoNumber;
-import com.zuniorteam.lotto.render.InputRender;
-
-import java.util.List;
 
 public class LottoGameBoard {
 
@@ -23,9 +21,10 @@ public class LottoGameBoard {
 
         outputView.printLottos(lottoBuyer.getLottoNumbers());
 
-        final WinningLotto winningLotto = InputRender.getWinningLotto(inputView.scanWinningNumbers());
+        final Lotto winningLotto = InputRender.getWinningLotto(inputView.scanWinningNumbers());
+        final LottoNumber bonusNumber = InputRender.getBonusNumber(inputView.scanBonusNumber());
 
-        final LottoResult lottoResult = lottoOffice.getLottoResult(lottoBuyer, winningLotto);
+        final LottoResult lottoResult = lottoOffice.getLottoResult(lottoBuyer, new WinningLotto(winningLotto, bonusNumber));
 
         outputView.printLottoResult(lottoResult);
     }
