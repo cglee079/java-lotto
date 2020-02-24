@@ -12,7 +12,6 @@ public class LottoOffice {
         validate(lottoBuyer, winningLotto);
 
         final List<MatchResult> matchResults = new ArrayList<>();
-        final Integer insertedMoney = lottoBuyer.getInsertedMoney();
         final Map<Prize, Integer> matchLottos = lottoBuyer.checkWinning(winningLotto);
         long totalPrize = 0L;
 
@@ -21,10 +20,10 @@ public class LottoOffice {
             final Long prizeMoney = prize.getMoney();
 
             totalPrize += prizeMoney * matchedLottoCount;
-            matchResults.add(new MatchResult(prize.getMatchCount(), prize.hasBonus(), prize.getMoney(), matchedLottoCount));
+            matchResults.add(new MatchResult(prize.getMatchCount(), prize.hasBonus(), prizeMoney, matchedLottoCount));
         }
 
-        return new LottoResult(matchResults, MathUtils.divide(totalPrize, insertedMoney));
+        return new LottoResult(matchResults, MathUtils.divide(totalPrize, lottoBuyer.getInsertedMoney()));
     }
 
     private void validate(LottoBuyer lottoBuyer, WinningLotto winningLotto) {

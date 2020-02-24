@@ -30,6 +30,7 @@ class LottoOfficeTest {
 
         final LottoBuyer lottoBuyer = Mockito.mock(LottoBuyer.class);
         final Map<Prize, Integer> results = new HashMap<>();
+        results.put(Prize.LOSER, 0);
         results.put(Prize.SEVENTH_PRIZE, 0);
         results.put(Prize.SIXTH_PRIZE, 0);
         results.put(Prize.FIFTH_PRIZE, 1);

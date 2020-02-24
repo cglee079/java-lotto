@@ -3,7 +3,6 @@ package com.zuniorteam.lotto.core;
 import com.zuniorteam.lotto.util.CollectionUtils;
 import com.zuniorteam.lotto.vo.LottoNumber;
 
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -32,7 +31,7 @@ public class Lotto {
 
         int result = 0;
         for (LottoNumber winningNumber : winningLotto.getLottoNumbers()) {
-            result += Collections.frequency(this.lottoNumbers, winningNumber);
+            result += Collections.frequency(lottoNumbers, winningNumber);
         }
 
         return Prize.ofByMatchCountAndBonus(result, lottoNumbers.contains(bonusNumber));

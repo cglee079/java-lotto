@@ -16,7 +16,7 @@ class LottoMachineTest {
 
     @DisplayName("로또 발급 테스트")
     @Test
-    public void testGenerate(){
+    void testGenerate(){
         assertDoesNotThrow(() -> new LottoMachine().generate());
     }
 

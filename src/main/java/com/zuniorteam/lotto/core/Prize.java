@@ -10,16 +10,18 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static com.zuniorteam.lotto.vo.PrizeRule.BonusMatch.*;
+
 public enum Prize {
 
-    WINNER(1, new PrizeRule(6, BonusMatch.ANYWAY), 20000000000L),
-    BONUS_WINNER(2, new PrizeRule(5, BonusMatch.MATCH), 30000000L),
-    THIRD_PRIZE(3, new PrizeRule(5, BonusMatch.NO_MATCH), 1500000L),
-    FOURTH_PRIZE(4, new PrizeRule(4, BonusMatch.ANYWAY), 50000L),
-    FIFTH_PRIZE(5, new PrizeRule(3, BonusMatch.ANYWAY), 5000L),
-    SIXTH_PRIZE(6, new PrizeRule(2, BonusMatch.ANYWAY), 0L),
-    SEVENTH_PRIZE(7, new PrizeRule(1, BonusMatch.ANYWAY), 0L),
-    LOSER(8, new PrizeRule(0, BonusMatch.ANYWAY), 0L);
+    WINNER(1, new PrizeRule(6, ANYWAY), 20000000000L),
+    BONUS_WINNER(2, new PrizeRule(5, MATCH), 30000000L),
+    THIRD_PRIZE(3, new PrizeRule(5, NO_MATCH), 1500000L),
+    FOURTH_PRIZE(4, new PrizeRule(4, ANYWAY), 50000L),
+    FIFTH_PRIZE(5, new PrizeRule(3, ANYWAY), 5000L),
+    SIXTH_PRIZE(6, new PrizeRule(2, ANYWAY), 0L),
+    SEVENTH_PRIZE(7, new PrizeRule(1, ANYWAY), 0L),
+    LOSER(8, new PrizeRule(0, ANYWAY), 0L);
 
     private final int rank;
     private final PrizeRule prizeRule;
