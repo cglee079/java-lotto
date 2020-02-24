@@ -1,51 +1,59 @@
 package com.zuniorteam.lotto.core;
 
 
-import java.util.Collections;
-import java.util.Map;
+import com.zuniorteam.lotto.vo.PrizeRule;
+import com.zuniorteam.lotto.vo.PrizeRule.BonusMatch;
+
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static com.zuniorteam.lotto.vo.PrizeRule.BonusMatch.*;
+
 public enum Prize {
 
-    ZERO(0, 0L),
-    ONE(1, 0L),
-    TWO(2, 0L),
-    THREE(3, 5000L),
-    FOUR(4, 50000L),
-    FIVE(5, 1500000L),
-    SIX(6, 20000000000L);
+    WINNER(1, new PrizeRule(6, ANYWAY), 20000000000L),
+    BONUS_WINNER(2, new PrizeRule(5, MATCH), 30000000L),
+    THIRD_PRIZE(3, new PrizeRule(5, NO_MATCH), 1500000L),
+    FOURTH_PRIZE(4, new PrizeRule(4, ANYWAY), 50000L),
+    FIFTH_PRIZE(5, new PrizeRule(3, ANYWAY), 5000L),
+    SIXTH_PRIZE(6, new PrizeRule(2, ANYWAY), 0L),
+    SEVENTH_PRIZE(7, new PrizeRule(1, ANYWAY), 0L),
+    LOSER(8, new PrizeRule(0, ANYWAY), 0L);
 
-    private static final Map<Integer, Prize> MATCH_COUNT_TO_PRIZE;
-
-    static {
-        final Map<Integer, Prize> matchCountToPrize = Stream.of(values())
-                .collect(Collectors.toMap(Prize::getMatchCount, e -> e));
-
-        MATCH_COUNT_TO_PRIZE = Collections.unmodifiableMap(matchCountToPrize);
-    }
-
-    private final int matchCount;
+    private final int rank;
+    private final PrizeRule prizeRule;
     private final long money;
 
-    Prize(int matchCount, long money) {
-        this.matchCount = matchCount;
+    Prize(int rank, PrizeRule prizeRule, long money) {
+        this.rank = rank;
+        this.prizeRule = prizeRule;
         this.money = money;
-    }
-
-    public int getMatchCount() {
-        return matchCount;
     }
 
     public long getMoney() {
         return money;
     }
 
-    public static Prize ofByMatchCount(Integer matchCount) {
-        if (!MATCH_COUNT_TO_PRIZE.containsKey(matchCount)) {
-            throw new IllegalArgumentException("적절하지 않은 매칭 갯수입니다.");
-        }
-
-        return MATCH_COUNT_TO_PRIZE.get(matchCount);
+    public int getRank() {
+        return rank;
     }
+
+    public int getMatchCount() {
+        return prizeRule.getMatchCount();
+    }
+
+    public boolean hasBonus() {
+        return prizeRule.hasBonus();
+    }
+
+    public static Prize ofByMatchCountAndBonus(int matchCount, boolean hasBonusNumber) {
+        return Stream.of(Prize.values())
+                .filter(p -> p.prizeRule.match(matchCount, hasBonusNumber))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("적절하지 않은 매칭 갯수입니다."));
+    }
+
 }

@@ -23,15 +23,18 @@ public class Lotto {
         return new ArrayList<>(lottoNumbers);
     }
 
-    public int match(WinningLotto winningLotto) {
-        final List<LottoNumber> winningNumbers = winningLotto.getLottoNumbers();
+    public boolean contains(LottoNumber bonusNumber) {
+        return lottoNumbers.contains(bonusNumber);
+    }
+
+    public Prize match(Lotto winningLotto, LottoNumber bonusNumber) {
 
         int result = 0;
-        for (LottoNumber winningNumber : winningNumbers) {
-            result += Collections.frequency(this.lottoNumbers, winningNumber);
+        for (LottoNumber winningNumber : winningLotto.getLottoNumbers()) {
+            result += Collections.frequency(lottoNumbers, winningNumber);
         }
 
-        return result;
+        return Prize.ofByMatchCountAndBonus(result, lottoNumbers.contains(bonusNumber));
     }
 
     private void validate(List<LottoNumber> lottoNumbers) {
@@ -45,6 +48,5 @@ public class Lotto {
             throw new IllegalArgumentException("중복된 로또 번호가 있습니다");
         }
     }
-
 
 }

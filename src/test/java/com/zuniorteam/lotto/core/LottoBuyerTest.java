@@ -34,16 +34,21 @@ class LottoBuyerTest {
     @DisplayName("로또 당첨 체크")
     @Test
     void testCheckWinning01(){
+        //given
         final Lotto lotto1 = Mockito.mock(Lotto.class);
         final Lotto lotto2 = Mockito.mock(Lotto.class);
+        final WinningLotto winningLotto = Mockito.mock(WinningLotto.class);
 
-        given(lotto1.match(any())).willReturn(3);
-        given(lotto2.match(any())).willReturn(4);
+        given(winningLotto.match(lotto1)).willReturn(Prize.FIFTH_PRIZE);
+        given(winningLotto.match(lotto2)).willReturn(Prize.FOURTH_PRIZE);
+
+        //when
         final LottoBuyer lottoBuyer = new LottoBuyer(2000, Arrays.asList(lotto1, lotto2));
-        final Map<Integer, Integer> result = lottoBuyer.checkWinning(null);
+        final Map<Prize, Integer> result = lottoBuyer.checkWinning(winningLotto);
 
-        assertThat(result.get(3)).isEqualTo(1);
-        assertThat(result.get(4)).isEqualTo(1);
+        //then
+        assertThat(result.get(Prize.FIFTH_PRIZE)).isEqualTo(1);
+        assertThat(result.get(Prize.FOURTH_PRIZE)).isEqualTo(1);
     }
 
 }

@@ -12,27 +12,26 @@ public class LottoOffice {
         validate(lottoBuyer, winningLotto);
 
         final List<MatchResult> matchResults = new ArrayList<>();
-        final Integer insertedMoney = lottoBuyer.getInsertedMoney();
-        final Map<Integer, Integer> matchLottos = lottoBuyer.checkWinning(winningLotto);
+        final Map<Prize, Integer> matchLottos = lottoBuyer.checkWinning(winningLotto);
         long totalPrize = 0L;
 
-        for (Integer matchCount : matchLottos.keySet()) {
-            final Integer matchedLottoCount = matchLottos.get(matchCount);
-            final Long prize = Prize.ofByMatchCount(matchCount).getMoney();
+        for (Prize prize : matchLottos.keySet()) {
+            final Integer matchedLottoCount = matchLottos.get(prize);
+            final Long prizeMoney = prize.getMoney();
 
-            totalPrize += prize * matchedLottoCount;
-            matchResults.add(new MatchResult(matchCount, prize, matchedLottoCount));
+            totalPrize += prizeMoney * matchedLottoCount;
+            matchResults.add(new MatchResult(prize.getMatchCount(), prize.hasBonus(), prizeMoney, matchedLottoCount));
         }
 
-        return new LottoResult(matchResults, MathUtils.divide(totalPrize, insertedMoney));
+        return new LottoResult(matchResults, MathUtils.divide(totalPrize, lottoBuyer.getInsertedMoney()));
     }
 
     private void validate(LottoBuyer lottoBuyer, WinningLotto winningLotto) {
         if(Objects.isNull(lottoBuyer)){
             throw new IllegalArgumentException("로또 구매자가 없습니다");
         }
-
         if(Objects.isNull(winningLotto)){
+
             throw new IllegalArgumentException("당첨 번호가 없습니다");
         }
     }

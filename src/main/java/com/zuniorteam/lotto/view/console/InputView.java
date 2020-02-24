@@ -1,10 +1,6 @@
 package com.zuniorteam.lotto.view.console;
 
-import com.zuniorteam.lotto.vo.LottoNumber;
-
-import java.util.Arrays;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 public class InputView {
 
@@ -18,6 +14,17 @@ public class InputView {
         SCANNER.nextLine();
 
         return insertedMoney;
+    }
+
+    public int scanBonusNumber() {
+        System.out.println("보너스 번호를 입력해주세요.");
+
+        final int bonusNumber = SCANNER.nextInt();
+
+        SCANNER.nextLine();
+
+        return bonusNumber;
+
     }
 
     public String scanWinningNumbers() {
