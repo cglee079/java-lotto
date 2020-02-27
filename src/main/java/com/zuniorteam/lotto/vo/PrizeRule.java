@@ -45,7 +45,6 @@ public class PrizeRule {
             public boolean match(boolean hasBonusNumber) {
                 return hasBonusNumber;
             }
-
         },
 
         NO_MATCH {

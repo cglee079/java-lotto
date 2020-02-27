@@ -41,7 +41,7 @@ class LottoOfficeTest {
         given(lottoBuyer.getInsertedMoney()).willReturn(insertedMoney);
         given(lottoBuyer.checkWinning(any())).willReturn(results);
 
-        final long totalPrize = Prize.ofByMatchCountAndBonus(3, false).getMoney() + Prize.ofByMatchCountAndBonus(4, false).getMoney();
+        final long totalPrize = Prize.parseByMatchCountAndBonus(3, false).getMoney() + Prize.parseByMatchCountAndBonus(4, false).getMoney();
 
         //when
         final LottoResult result = new LottoOffice().getLottoResult(lottoBuyer, Mockito.mock(WinningLotto.class));

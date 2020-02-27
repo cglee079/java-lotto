@@ -34,7 +34,7 @@ public class Lotto {
             result += Collections.frequency(lottoNumbers, winningNumber);
         }
 
-        return Prize.ofByMatchCountAndBonus(result, lottoNumbers.contains(bonusNumber));
+        return Prize.parseByMatchCountAndBonus(result, lottoNumbers.contains(bonusNumber));
     }
 
     private void validate(List<LottoNumber> lottoNumbers) {
