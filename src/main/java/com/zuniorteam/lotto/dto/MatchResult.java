@@ -1,5 +1,7 @@
 package com.zuniorteam.lotto.dto;
 
+import com.zuniorteam.lotto.core.Prize;
+
 public class MatchResult {
 
     private int matchCount;
@@ -7,10 +9,10 @@ public class MatchResult {
     private long prizeMoney;
     private int lottoCount;
 
-    public MatchResult(int matchCount, boolean hasBonus, long prizeMoney, int lottoCount) {
-        this.matchCount = matchCount;
-        this.hasBonus = hasBonus;
-        this.prizeMoney = prizeMoney;
+    public MatchResult(Prize prize, int lottoCount) {
+        this.matchCount = prize.getMatchCount();
+        this.hasBonus = prize.hasBonus();
+        this.prizeMoney = prize.getMoney();
         this.lottoCount = lottoCount;
     }
 
