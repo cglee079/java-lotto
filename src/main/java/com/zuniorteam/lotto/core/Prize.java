@@ -49,7 +49,7 @@ public enum Prize {
         return prizeRule.hasBonus();
     }
 
-    public static Prize ofByMatchCountAndBonus(int matchCount, boolean hasBonusNumber) {
+    public static Prize parseByMatchCountAndBonus(int matchCount, boolean hasBonusNumber) {
         return Stream.of(Prize.values())
                 .filter(p -> p.prizeRule.match(matchCount, hasBonusNumber))
                 .findFirst()

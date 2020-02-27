@@ -6,11 +6,10 @@ public class InputView {
 
     private final Scanner SCANNER = new Scanner(System.in);
 
-
     public Integer scanMoney() {
         System.out.println("구입금액을 입력해주세요.");
-        final int insertedMoney = SCANNER.nextInt();
 
+        final int insertedMoney = SCANNER.nextInt();
         SCANNER.nextLine();
 
         return insertedMoney;
@@ -20,7 +19,6 @@ public class InputView {
         System.out.println("보너스 번호를 입력해주세요.");
 
         final int bonusNumber = SCANNER.nextInt();
-
         SCANNER.nextLine();
 
         return bonusNumber;

@@ -26,33 +26,42 @@ public class PrizeRule {
     public boolean match(int matchCount, boolean hasBonusNumber) {
         validate(matchCount);
 
-        if (this.matchCount == matchCount) {
-            return matchBonusNumber(hasBonusNumber);
+        if (this.matchCount != matchCount) {
+            return false;
         }
-        return false;
+
+        return bonusMatch.match(hasBonusNumber);
     }
 
     private void validate(int matchCount) {
-        if(matchCount < 0){
+        if (matchCount < 0) {
             throw new IllegalArgumentException("적절하지 않은 매치개수 입니다");
         }
     }
 
-    private boolean matchBonusNumber(boolean hasBonus) {
-        switch (bonusMatch) {
-            case MATCH:
-                return hasBonus;
-            case NO_MATCH:
-                return !hasBonus;
-            case ANYWAY:
-                return true;
-            default:
-                throw new IllegalArgumentException("알 수 없는 Bonus Match 입니다");
-        }
-    }
-
     public enum BonusMatch {
-        MATCH, NO_MATCH, ANYWAY
+        MATCH {
+            @Override
+            public boolean match(boolean hasBonusNumber) {
+                return hasBonusNumber;
+            }
+        },
+
+        NO_MATCH {
+            @Override
+            public boolean match(boolean hasBonusNumber) {
+                return !hasBonusNumber;
+            }
+        },
+
+        ANYWAY {
+            @Override
+            public boolean match(boolean hasBonusNumber) {
+                return true;
+            }
+        };
+
+        public abstract boolean match(boolean hasBonusNumber);
     }
 
     @Override
