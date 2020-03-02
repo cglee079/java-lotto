@@ -1,6 +1,6 @@
 package com.zuniorteam.lotto.core;
 
-import com.zuniorteam.lotto.util.CollectionUtils;
+import com.zuniorteam.lotto.util.CollectionUtil;
 import com.zuniorteam.lotto.vo.LottoNumber;
 
 import java.util.ArrayList;
@@ -44,7 +44,7 @@ public class Lotto {
             throw new IllegalArgumentException("로또 숫자 사이즈가 다릅니다");
         }
 
-        if (!CollectionUtils.isUnique(lottoNumbers)) {
+        if (!CollectionUtil.isUnique(lottoNumbers)) {
             throw new IllegalArgumentException("중복된 로또 번호가 있습니다");
         }
     }

@@ -1,6 +1,10 @@
 package com.zuniorteam.lotto.core;
 
+import com.zuniorteam.lotto.util.CollectionUtil;
+
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -17,14 +21,16 @@ public class LottoSeller {
         this.lottoMachine = lottoMachine;
     }
 
-    public List<Lotto> sell(int money) {
+    public List<Lotto> sell(int money, List<Lotto> appointLottos) {
         validate(money);
 
-        final int numberOfLottos = money / LOTTO_PRICE;
+        final int numberOfLottos = (money / LOTTO_PRICE) - appointLottos.size();
 
-        return IntStream.range(0, numberOfLottos)
+        final List<Lotto> autoLottoNumbers = IntStream.range(0, numberOfLottos)
                 .mapToObj(i -> lottoMachine.generate())
                 .collect(Collectors.toList());
+
+        return CollectionUtil.merge(appointLottos, autoLottoNumbers);
 
     }
 

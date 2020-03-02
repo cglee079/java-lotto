@@ -6,6 +6,9 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.Mockito;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -39,12 +42,29 @@ class LottoSellerTest {
         given(lottoMachine.generate()).willReturn(lotto);
 
         //when
-        final List<Lotto> lottos = new LottoSeller(lottoMachine).sell(insertedMoney);
+        final List<Lotto> lottos = new LottoSeller(lottoMachine).sell(insertedMoney, Collections.emptyList());
 
         //then
         assertThat(lottos.size()).isEqualTo(expectSize);
     }
 
+    @DisplayName("로또 판매, 수동번호 포함")
+    @Test
+    void testSell02(){
+        //given
+        final int insertedMoney = 3000;
+        final LottoMachine lottoMachine = Mockito.mock(LottoMachine.class);
+
+        final Lotto appointLotto = Mockito.mock(Lotto.class);
+        final Lotto autoLotto = Mockito.mock(Lotto.class);
+        given(lottoMachine.generate()).willReturn(autoLotto);
+
+        //when
+        final List<Lotto> lottos = new LottoSeller(lottoMachine).sell(insertedMoney, Collections.singletonList(appointLotto));
+
+        //then
+        assertThat(lottos).containsExactly(appointLotto, autoLotto, autoLotto);
+    }
 
     @DisplayName("로또 판매, 금액이 나눠어 떨어지지 않거나, 0인경우")
     @ParameterizedTest
@@ -56,6 +76,6 @@ class LottoSellerTest {
         final Lotto lotto = Mockito.mock(Lotto.class);
         given(lottoMachine.generate()).willReturn(lotto);
 
-        assertThrows(IllegalArgumentException.class, () ->  new LottoSeller(lottoMachine).sell(insertedMoney));
+        assertThrows(IllegalArgumentException.class, () ->  new LottoSeller(lottoMachine).sell(insertedMoney, Collections.emptyList()));
     }
 }
