@@ -30,7 +30,6 @@ class LottoBuyerTest {
         );
     }
 
-
     @DisplayName("로또 당첨 체크")
     @Test
     void testCheckWinning01(){

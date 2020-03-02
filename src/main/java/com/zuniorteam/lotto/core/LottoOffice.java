@@ -23,7 +23,7 @@ public class LottoOffice {
             final Integer matchedLottoCount = matchLottos.get(prize);
             final Money prizeMoney = prize.getMoney();
 
-            totalPrize = totalPrize.addMultiple(prizeMoney, matchedLottoCount);
+            totalPrize = totalPrize.add(prizeMoney.multiple(matchedLottoCount));
             matchResults.add(new MatchResult(prize, matchedLottoCount));
         }
 

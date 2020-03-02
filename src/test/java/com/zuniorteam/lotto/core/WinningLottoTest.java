@@ -11,7 +11,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class WinningLottoTest {
 
-
     @DisplayName("생성")
     @Test
     void testNewInstance01() {

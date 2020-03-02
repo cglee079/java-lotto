@@ -32,10 +32,8 @@ public class Money {
         return Money.of(amount + money.amount);
     }
 
-    public Money addMultiple(Money money, Integer count) {
-        long total = this.amount;
-        total += IntStream.range(0, count).mapToLong(i -> money.amount).sum();
-        return Money.of(total);
+    public Money multiple(Integer count) {
+        return Money.of(this.amount * count);
     }
 
     public Money divideMoney(Money money) {

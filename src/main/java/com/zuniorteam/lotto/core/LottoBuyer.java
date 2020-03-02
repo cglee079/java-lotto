@@ -50,7 +50,6 @@ public class LottoBuyer {
         return sortedResults;
     }
 
-
     public List<List<LottoNumber>> getLottoNumbers() {
         return lottos.stream()
                 .map(Lotto::getLottoNumbers)

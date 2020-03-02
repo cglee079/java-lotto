@@ -28,7 +28,6 @@ public class OutputView {
 
         System.out.println("---------------");
         System.out.println(String.format("승률 %.2f", lottoResult.getWinPercent()));
-
     }
 
     private String getPrizeRuleOutput(MatchResult matchResult) {

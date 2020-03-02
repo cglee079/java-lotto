@@ -27,12 +27,12 @@ public class InputView {
         return numberOfAppointLotto;
     }
 
-    public List<String> scanAppointLottos(int n) {
+    public List<String> scanAppointLottos(int numberOfAppoinLottos) {
         System.out.println("수동 로또 번호를 입력해주세요");
 
         final List<String> lines = new ArrayList<>();
 
-        IntStream.range(0, n)
+        IntStream.range(0, numberOfAppoinLottos)
                 .forEach(i -> lines.add(SCANNER.nextLine()));
 
         return lines;

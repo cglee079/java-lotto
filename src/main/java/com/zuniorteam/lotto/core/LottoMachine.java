@@ -26,6 +26,4 @@ public class LottoMachine {
 
         return new Lotto(lottoNumbers);
     }
-
-
 }

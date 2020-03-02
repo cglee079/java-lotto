@@ -13,11 +13,11 @@ public enum Prize {
     WINNER(1, new PrizeRule(6, ANYWAY), Money.of(20000000000L)),
     BONUS_WINNER(2, new PrizeRule(5, MATCH), Money.of(30000000L)),
     THIRD_PRIZE(3, new PrizeRule(5, NO_MATCH), Money.of(1500000L)),
-    FOURTH_PRIZE(4, new PrizeRule(4, ANYWAY),Money.of( 50000L)),
+    FOURTH_PRIZE(4, new PrizeRule(4, ANYWAY), Money.of(50000L)),
     FIFTH_PRIZE(5, new PrizeRule(3, ANYWAY), Money.of(5000L)),
-    SIXTH_PRIZE(6, new PrizeRule(2, ANYWAY), Money.of(0L)),
-    SEVENTH_PRIZE(7, new PrizeRule(1, ANYWAY),Money.of( 0L)),
-    LOSER(8, new PrizeRule(0, ANYWAY), Money.of(0L));
+    SIXTH_PRIZE(6, new PrizeRule(2, ANYWAY), Money.ZERO),
+    SEVENTH_PRIZE(7, new PrizeRule(1, ANYWAY), Money.ZERO),
+    LOSER(8, new PrizeRule(0, ANYWAY), Money.ZERO);
 
     private final int rank;
     private final PrizeRule prizeRule;

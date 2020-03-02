@@ -2,7 +2,9 @@ package com.zuniorteam.lotto.util;
 
 import java.util.*;
 
-public class CollectionUtil {
+public final class CollectionUtil {
+
+    private CollectionUtil(){}
 
     public static <T> boolean isUnique(Collection<T> collection) {
         return collection.stream().distinct().count() == collection.size();

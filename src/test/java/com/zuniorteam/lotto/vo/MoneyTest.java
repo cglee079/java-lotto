@@ -35,13 +35,12 @@ class MoneyTest {
         assertThat(moneyX.add(moneyY)).isEqualTo(Money.of(expected));
     }
 
-    @DisplayName("더하기, 여러번")
+    @DisplayName("곱하기")
     @ParameterizedTest
-    @CsvSource({"100, 200, 3, 700", "0,200,0,0"})
-    void testAddMultiple(int x, int y, int count, int expected) {
-        final Money moneyX = Money.of(x);
-        final Money moneyY = Money.of(y);
-        assertThat(moneyX.addMultiple(moneyY, count)).isEqualTo(Money.of(expected));
+    @CsvSource({"100, 3, 300", "0,0,0"})
+    void testAddMultiple(int x, int count, int expected) {
+        final Money money = Money.of(x);
+        assertThat(money.multiple(count)).isEqualTo(Money.of(expected));
     }
 
     @DisplayName("돈으로 나누기")

@@ -33,8 +33,8 @@ class LottoSellerTest {
     @ParameterizedTest
     @ValueSource(ints = {0, 1000, 2000, 3000})
     void testSell01(int insertedAmount) {
-        final Money insertedMoney = Money.of(insertedAmount);
         //given
+        final Money insertedMoney = Money.of(insertedAmount);
         long expectSize = insertedMoney.divideMoney(LottoSeller.LOTTO_PRICE).amount();
         final LottoMachine lottoMachine = Mockito.mock(LottoMachine.class);
 

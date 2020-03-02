@@ -30,7 +30,6 @@ public class Lotto {
     }
 
     public Prize match(Lotto winningLotto, LottoNumber bonusNumber) {
-
         int result = 0;
         for (LottoNumber winningNumber : winningLotto.getLottoNumbers()) {
             result += Collections.frequency(lottoNumbers, winningNumber);
