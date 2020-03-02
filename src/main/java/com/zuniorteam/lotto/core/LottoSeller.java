@@ -20,9 +20,9 @@ public class LottoSeller {
     }
 
     public List<Lotto> sell(Money money, List<Lotto> appointLottos) {
-        validate(money);
+        validate(money , appointLottos);
 
-        final long numberOfLottos = money.divideMoney(LOTTO_PRICE).amount() - appointLottos.size();
+        final long numberOfLottos = getNumbeOfAutoLottos(money, appointLottos);
 
         final List<Lotto> autoLottoNumbers = LongStream.range(0, numberOfLottos)
                 .mapToObj(i -> lottoMachine.generate())
@@ -32,9 +32,21 @@ public class LottoSeller {
 
     }
 
-    private void validate(Money money) {
+    private long getNumbeOfAutoLottos(Money money, List<Lotto> appointLottos) {
+        final long numberOfAutoLottos = money.divideMoney(LOTTO_PRICE).amount() - appointLottos.size();
+        if(numberOfAutoLottos < 0){
+            throw new IllegalArgumentException("이 돈으로 로또를 살수 있을거라 생각했냐!!!!!!!!!!!!!!!!!!!!!");
+        }
+        return numberOfAutoLottos;
+    }
+
+    private void validate(Money money, List<Lotto> countOfAppointLottos) {
         if(Objects.isNull(money)){
             throw new IllegalArgumentException("금액이 null 입니다.");
+        }
+
+        if(Objects.isNull(countOfAppointLottos)){
+            throw new IllegalArgumentException("수동 로또가 null 입니다.");
         }
     }
 }

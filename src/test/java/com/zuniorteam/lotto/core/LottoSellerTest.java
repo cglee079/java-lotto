@@ -11,21 +11,20 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
 
 class LottoSellerTest {
 
     @DisplayName("생성")
     @Test
-    void testNewInstance01(){
+    void testNewInstance01() {
         assertDoesNotThrow(() -> new LottoSeller(new LottoMachine()));
     }
 
     @DisplayName("생성, 인자가 null")
     @Test
-    void testNewInstance02(){
+    void testNewInstance02() {
         assertThrows(AssertionError.class, () -> new LottoSeller(null));
     }
 
@@ -33,7 +32,7 @@ class LottoSellerTest {
     @DisplayName("로또 판매")
     @ParameterizedTest
     @ValueSource(ints = {1000, 2000, 3000})
-    void testSell01(int insertedAmount){
+    void testSell01(int insertedAmount) {
         final Money insertedMoney = Money.of(insertedAmount);
         //given
         long expectSize = insertedMoney.divideMoney(LottoSeller.LOTTO_PRICE).amount();
@@ -51,7 +50,7 @@ class LottoSellerTest {
 
     @DisplayName("로또 판매, 수동번호 포함")
     @Test
-    void testSell02(){
+    void testSell02() {
         //given
         final Money insertedMoney = Money.of(3000);
         final LottoMachine lottoMachine = Mockito.mock(LottoMachine.class);
@@ -65,6 +64,37 @@ class LottoSellerTest {
 
         //then
         assertThat(lottos).containsExactly(appointLotto, autoLotto, autoLotto);
+    }
+
+    @DisplayName("로또 판매, 수동번호 포함, 돈이 부족할때")
+    @Test
+    void testSell03() {
+        //given
+        final Money insertedMoney = Money.ZERO;
+        final LottoMachine lottoMachine = Mockito.mock(LottoMachine.class);
+
+        final Lotto appointLotto = Mockito.mock(Lotto.class);
+        final Lotto autoLotto = Mockito.mock(Lotto.class);
+        given(lottoMachine.generate()).willReturn(autoLotto);
+
+        //when, then
+        assertThrows(
+                RuntimeException.class,
+                () -> new LottoSeller(lottoMachine).sell(insertedMoney, Collections.singletonList(appointLotto)));
+    }
+
+    @DisplayName("로또 판매, null 주입")
+    @Test
+    void testSell04() {
+        //given
+        final LottoMachine lottoMachine = Mockito.mock(LottoMachine.class);
+        final LottoSeller lottoSeller = new LottoSeller(lottoMachine);
+
+        //when, then
+        assertAll(
+                () -> assertThrows(IllegalArgumentException.class, () -> lottoSeller.sell(null, Collections.emptyList())),
+                () -> assertThrows(IllegalArgumentException.class, () -> lottoSeller.sell(Money.ZERO, null))
+        );
     }
 
 }
