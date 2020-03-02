@@ -22,21 +22,21 @@ public class LottoSeller {
     public List<Lotto> sell(Money money, List<Lotto> appointLottos) {
         validate(money , appointLottos);
 
-        final long numberOfLottos = getNumbeOfAutoLottos(money, appointLottos);
+        final long numberOfLottos = getNumberOfAutoLottos(money, appointLottos);
 
         final List<Lotto> autoLottoNumbers = LongStream.range(0, numberOfLottos)
                 .mapToObj(i -> lottoMachine.generate())
                 .collect(Collectors.toList());
 
         return CollectionUtil.merge(appointLottos, autoLottoNumbers);
-
     }
 
-    private long getNumbeOfAutoLottos(Money money, List<Lotto> appointLottos) {
+    private long getNumberOfAutoLottos(Money money, List<Lotto> appointLottos) {
         final long numberOfAutoLottos = money.divideMoney(LOTTO_PRICE).amount() - appointLottos.size();
         if(numberOfAutoLottos < 0){
             throw new IllegalArgumentException("이 돈으로 로또를 살수 있을거라 생각했냐!!!!!!!!!!!!!!!!!!!!!");
         }
+
         return numberOfAutoLottos;
     }
 

@@ -22,7 +22,6 @@ public class LottoMachine {
 
         final List<LottoNumber> lottoNumbers = RESERVE_LOTTO_NUMBERS.stream()
                 .limit(Lotto.LOTTO_NUMBER_LENGTH)
-                .sorted(Comparator.comparingInt(LottoNumber::value))
                 .collect(toList());
 
         return new Lotto(lottoNumbers);

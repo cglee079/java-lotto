@@ -44,11 +44,11 @@ public class Money {
     }
 
     private void validateDivideMoney(Money money) {
-        if(money.equals(Money.ZERO)){
+        if (money.equals(Money.ZERO)) {
             throw new IllegalArgumentException("0으로 나눌수 없습니다.");
         }
 
-        if (amount % money.amount != 0) {
+        if ((amount != 0) && (amount % money.amount != 0)) {
             throw new IllegalArgumentException("금액이 나누어 떨어지지 않습니다");
         }
     }

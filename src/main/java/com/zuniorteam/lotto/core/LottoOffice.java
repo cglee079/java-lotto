@@ -2,7 +2,7 @@ package com.zuniorteam.lotto.core;
 
 import com.zuniorteam.lotto.dto.LottoResult;
 import com.zuniorteam.lotto.dto.MatchResult;
-import com.zuniorteam.lotto.util.MathUtils;
+import com.zuniorteam.lotto.util.MathUtil;
 import com.zuniorteam.lotto.vo.Money;
 
 import java.util.ArrayList;
@@ -28,15 +28,15 @@ public class LottoOffice {
         }
 
         final Money insertedMoney = lottoBuyer.getInsertedMoney();
-        return new LottoResult(matchResults, MathUtils.divide(totalPrize.amount(), insertedMoney.amount()));
+        return new LottoResult(matchResults, MathUtil.divide(totalPrize.amount(), insertedMoney.amount()));
     }
 
     private void validate(LottoBuyer lottoBuyer, WinningLotto winningLotto) {
         if (Objects.isNull(lottoBuyer)) {
             throw new IllegalArgumentException("로또 구매자가 없습니다");
         }
-        if (Objects.isNull(winningLotto)) {
 
+        if (Objects.isNull(winningLotto)) {
             throw new IllegalArgumentException("당첨 번호가 없습니다");
         }
     }

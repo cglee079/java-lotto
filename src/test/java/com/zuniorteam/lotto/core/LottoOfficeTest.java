@@ -1,7 +1,7 @@
 package com.zuniorteam.lotto.core;
 
 import com.zuniorteam.lotto.dto.LottoResult;
-import com.zuniorteam.lotto.util.MathUtils;
+import com.zuniorteam.lotto.util.MathUtil;
 import com.zuniorteam.lotto.vo.Money;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -50,7 +50,7 @@ class LottoOfficeTest {
         final LottoResult result = new LottoOffice().getLottoResult(lottoBuyer, Mockito.mock(WinningLotto.class));
 
         //then
-        assertThat(result.getWinPercent()).isEqualTo(MathUtils.divide(totalPrize.amount(), insertedMoney.amount()));
+        assertThat(result.getWinPercent()).isEqualTo(MathUtil.divide(totalPrize.amount(), insertedMoney.amount()));
     }
 
     @DisplayName("로또 결과 조회, 구매자가 또는 당첨번호가 null")

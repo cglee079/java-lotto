@@ -31,7 +31,7 @@ class LottoSellerTest {
 
     @DisplayName("로또 판매")
     @ParameterizedTest
-    @ValueSource(ints = {1000, 2000, 3000})
+    @ValueSource(ints = {0, 1000, 2000, 3000})
     void testSell01(int insertedAmount) {
         final Money insertedMoney = Money.of(insertedAmount);
         //given

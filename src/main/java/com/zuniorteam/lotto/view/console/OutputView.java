@@ -8,7 +8,10 @@ import java.util.List;
 
 public class OutputView {
 
-    public void printLottos(List<List<LottoNumber>> lottos) {
+    public void printLottos(List<List<LottoNumber>> lottos, Integer numberOfAppointLottos) {
+        final int numberOfAutoLottos = lottos.size() - numberOfAppointLottos;
+        System.out.println(String.format("수동으로 %d 장, 자동으로 %d 장 구매했습니다", numberOfAppointLottos, numberOfAutoLottos));
+
         for (List<LottoNumber> lotto : lottos) {
             System.out.println(lotto);
         }

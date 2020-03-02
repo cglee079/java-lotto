@@ -15,20 +15,20 @@ public class LottoGameBoard {
     private final LottoSeller lottoSeller = new LottoSeller(new LottoMachine());
     private final LottoOffice lottoOffice = new LottoOffice();
 
-    private final InputView inputView = new InputView();
+    private final InputRender inputRender = new InputRender(new InputView());
     private final OutputView outputView = new OutputView();
 
     public void playGame() {
-        final Money insertedMoney = InputRender.getInsertMoney(inputView.scanMoney());
-        final Integer countOfAppointLotto = InputRender.getCountOfAppointLotto(inputView.scanAppointLottoCount());
-        final List<Lotto> appointLottos = InputRender.getAppointLottos(inputView.scanAppointLottos(countOfAppointLotto));
+        final Money insertedMoney = inputRender.getInsertMoney();
+        final Integer numberOfAppointLotto = inputRender.getNumberOfAppointLotto();
+        final List<Lotto> appointLottos = inputRender.getAppointLottos(numberOfAppointLotto);
 
         final LottoBuyer lottoBuyer = new LottoBuyer(insertedMoney, lottoSeller.sell(insertedMoney, appointLottos));
 
-        outputView.printLottos(lottoBuyer.getLottoNumbers());
+        outputView.printLottos(lottoBuyer.getLottoNumbers(), numberOfAppointLotto);
 
-        final Lotto winningLotto = InputRender.getWinningLotto(inputView.scanWinningNumbers());
-        final LottoNumber bonusNumber = InputRender.getBonusNumber(inputView.scanBonusNumber());
+        final Lotto winningLotto = inputRender.getWinningLotto();
+        final LottoNumber bonusNumber = inputRender.getBonusNumber();
 
         final LottoResult lottoResult = lottoOffice.getLottoResult(lottoBuyer, new WinningLotto(winningLotto, bonusNumber));
 

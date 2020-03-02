@@ -5,6 +5,7 @@ import com.zuniorteam.lotto.vo.LottoNumber;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class Lotto {
@@ -16,11 +17,12 @@ public class Lotto {
     public Lotto(List<LottoNumber> lottoNumbers) {
         validate(lottoNumbers);
 
+        lottoNumbers.sort(Comparator.comparingInt(LottoNumber::value));
         this.lottoNumbers = Collections.unmodifiableList(lottoNumbers);
     }
 
     public List<LottoNumber> getLottoNumbers() {
-        return new ArrayList<>(lottoNumbers);
+        return new ArrayList<>(this.lottoNumbers);
     }
 
     public boolean contains(LottoNumber bonusNumber) {
