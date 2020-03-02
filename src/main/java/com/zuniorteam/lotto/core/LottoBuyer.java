@@ -1,6 +1,7 @@
 package com.zuniorteam.lotto.core;
 
 import com.zuniorteam.lotto.vo.LottoNumber;
+import com.zuniorteam.lotto.vo.Money;
 
 import java.util.List;
 import java.util.Map;
@@ -13,18 +14,18 @@ import static java.util.stream.Collectors.toMap;
 
 public class LottoBuyer {
 
-    private final int insertedMoney;
+    private final Money insertedMoney;
     private final List<Lotto> lottos;
 
-    public LottoBuyer(int insertedMoney, List<Lotto> lottos) {
-        assert insertedMoney > 0;
+    public LottoBuyer(Money insertedMoney, List<Lotto> lottos) {
+        assert insertedMoney != null;
         assert lottos != null;
 
         this.insertedMoney = insertedMoney;
         this.lottos = lottos;
     }
 
-    public Integer getInsertedMoney() {
+    public Money getInsertedMoney() {
         return insertedMoney;
     }
 
@@ -48,7 +49,6 @@ public class LottoBuyer {
 
         return sortedResults;
     }
-
 
     public List<List<LottoNumber>> getLottoNumbers() {
         return lottos.stream()

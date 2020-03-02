@@ -1,10 +1,11 @@
 package com.zuniorteam.lotto.core;
 
-import com.zuniorteam.lotto.util.CollectionUtils;
+import com.zuniorteam.lotto.util.CollectionUtil;
 import com.zuniorteam.lotto.vo.LottoNumber;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class Lotto {
@@ -16,11 +17,12 @@ public class Lotto {
     public Lotto(List<LottoNumber> lottoNumbers) {
         validate(lottoNumbers);
 
+        lottoNumbers.sort(Comparator.comparingInt(LottoNumber::value));
         this.lottoNumbers = Collections.unmodifiableList(lottoNumbers);
     }
 
     public List<LottoNumber> getLottoNumbers() {
-        return new ArrayList<>(lottoNumbers);
+        return new ArrayList<>(this.lottoNumbers);
     }
 
     public boolean contains(LottoNumber bonusNumber) {
@@ -28,7 +30,6 @@ public class Lotto {
     }
 
     public Prize match(Lotto winningLotto, LottoNumber bonusNumber) {
-
         int result = 0;
         for (LottoNumber winningNumber : winningLotto.getLottoNumbers()) {
             result += Collections.frequency(lottoNumbers, winningNumber);
@@ -44,7 +45,7 @@ public class Lotto {
             throw new IllegalArgumentException("로또 숫자 사이즈가 다릅니다");
         }
 
-        if (!CollectionUtils.isUnique(lottoNumbers)) {
+        if (!CollectionUtil.isUnique(lottoNumbers)) {
             throw new IllegalArgumentException("중복된 로또 번호가 있습니다");
         }
     }

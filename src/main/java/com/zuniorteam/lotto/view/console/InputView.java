@@ -1,6 +1,9 @@
 package com.zuniorteam.lotto.view.console;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.IntStream;
 
 public class InputView {
 
@@ -15,6 +18,26 @@ public class InputView {
         return insertedMoney;
     }
 
+    public Integer scanNumberOfAppointLottos() {
+        System.out.println("수동 로또 개수를 입력해주세요");
+
+        final int numberOfAppointLotto = SCANNER.nextInt();
+        SCANNER.nextLine();
+
+        return numberOfAppointLotto;
+    }
+
+    public List<String> scanAppointLottos(int numberOfAppoinLottos) {
+        System.out.println("수동 로또 번호를 입력해주세요");
+
+        final List<String> lines = new ArrayList<>();
+
+        IntStream.range(0, numberOfAppoinLottos)
+                .forEach(i -> lines.add(SCANNER.nextLine()));
+
+        return lines;
+    }
+
     public int scanBonusNumber() {
         System.out.println("보너스 번호를 입력해주세요.");
 
@@ -22,13 +45,11 @@ public class InputView {
         SCANNER.nextLine();
 
         return bonusNumber;
-
     }
 
     public String scanWinningNumbers() {
         System.out.println("지난주 당첨 번호를 입력해주세요. ex) 1,2,3,4,5,6");
 
         return SCANNER.nextLine();
-
     }
 }

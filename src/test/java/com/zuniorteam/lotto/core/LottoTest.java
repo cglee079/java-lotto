@@ -21,7 +21,6 @@ class LottoTest {
     @ParameterizedTest
     @ValueSource(strings = {"1,2,3,4,5,6"})
     void testNewInstance01(String value) {
-
         final List<LottoNumber> lottoNumbers = Arrays.stream(value.split(","))
                 .map(Integer::parseInt)
                 .map(LottoNumber::new)
@@ -34,7 +33,6 @@ class LottoTest {
     @ParameterizedTest
     @ValueSource(strings = {"1,2,3,4,5,6,7"})
     void testNewInstance02(String value) {
-
         final List<LottoNumber> lottoNumbers = Arrays.stream(value.split(","))
                 .map(Integer::parseInt)
                 .map(LottoNumber::new)
@@ -47,7 +45,6 @@ class LottoTest {
     @ParameterizedTest
     @ValueSource(strings = {"1,1,3,4,5,6"})
     void testNewInstance03(String value) {
-
         final List<LottoNumber> lottoNumbers = Arrays.stream(value.split(","))
                 .map(Integer::parseInt)
                 .map(LottoNumber::new)
@@ -59,7 +56,6 @@ class LottoTest {
     @DisplayName("로또 매치")
     @Test
     void testMatch01() {
-
         final List<LottoNumber> lottoNumbers = new ArrayList<>();
 
         for (int i = 1; i < Lotto.LOTTO_NUMBER_LENGTH + 1; i++) {
@@ -82,6 +78,5 @@ class LottoTest {
         final Prize match = lotto.match(winningLotto, bonusNumber);
 
         assertThat(match).isEqualTo(Prize.FIFTH_PRIZE);
-
     }
 }

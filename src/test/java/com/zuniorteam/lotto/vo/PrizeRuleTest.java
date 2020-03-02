@@ -40,7 +40,6 @@ class PrizeRuleTest {
 
         //then
         assertThat(match).isEqualTo(expected);
-
     }
 
     @DisplayName("match(), BonusMatch NO_MATCH 일 때")
@@ -55,7 +54,6 @@ class PrizeRuleTest {
 
         //then
         assertThat(match).isEqualTo(expected);
-
     }
 
     @DisplayName("match(), BonusMatch ANYWAY 일 때")
@@ -70,7 +68,6 @@ class PrizeRuleTest {
 
         //then
         assertThat(match).isEqualTo(expected);
-
     }
 
 }

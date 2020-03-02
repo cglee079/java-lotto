@@ -1,7 +1,8 @@
 package com.zuniorteam.lotto.core;
 
 import com.zuniorteam.lotto.dto.LottoResult;
-import com.zuniorteam.lotto.util.MathUtils;
+import com.zuniorteam.lotto.util.MathUtil;
+import com.zuniorteam.lotto.vo.Money;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -26,7 +27,7 @@ class LottoOfficeTest {
     @Test
     void testGetLottoResult01() {
         //given
-        final int insertedMoney = 1000;
+        final Money insertedMoney = Money.of(1000);
 
         final LottoBuyer lottoBuyer = Mockito.mock(LottoBuyer.class);
         final Map<Prize, Integer> results = new HashMap<>();
@@ -41,13 +42,15 @@ class LottoOfficeTest {
         given(lottoBuyer.getInsertedMoney()).willReturn(insertedMoney);
         given(lottoBuyer.checkWinning(any())).willReturn(results);
 
-        final long totalPrize = Prize.parseByMatchCountAndBonus(3, false).getMoney() + Prize.parseByMatchCountAndBonus(4, false).getMoney();
+        final Money prizeA = Prize.parseByMatchCountAndBonus(3, false).getMoney();
+        final Money prizeB = Prize.parseByMatchCountAndBonus(4, false).getMoney();
+        final Money totalPrize = prizeA.add(prizeB);
 
         //when
         final LottoResult result = new LottoOffice().getLottoResult(lottoBuyer, Mockito.mock(WinningLotto.class));
 
         //then
-        assertThat(result.getWinPercent()).isEqualTo(MathUtils.divide(totalPrize, insertedMoney));
+        assertThat(result.getWinPercent()).isEqualTo(MathUtil.divide(totalPrize.amount(), insertedMoney.amount()));
     }
 
     @DisplayName("로또 결과 조회, 구매자가 또는 당첨번호가 null")

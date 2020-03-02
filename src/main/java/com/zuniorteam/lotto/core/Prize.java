@@ -1,39 +1,35 @@
 package com.zuniorteam.lotto.core;
 
 
+import com.zuniorteam.lotto.vo.Money;
 import com.zuniorteam.lotto.vo.PrizeRule;
-import com.zuniorteam.lotto.vo.PrizeRule.BonusMatch;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static com.zuniorteam.lotto.vo.PrizeRule.BonusMatch.*;
 
 public enum Prize {
 
-    WINNER(1, new PrizeRule(6, ANYWAY), 20000000000L),
-    BONUS_WINNER(2, new PrizeRule(5, MATCH), 30000000L),
-    THIRD_PRIZE(3, new PrizeRule(5, NO_MATCH), 1500000L),
-    FOURTH_PRIZE(4, new PrizeRule(4, ANYWAY), 50000L),
-    FIFTH_PRIZE(5, new PrizeRule(3, ANYWAY), 5000L),
-    SIXTH_PRIZE(6, new PrizeRule(2, ANYWAY), 0L),
-    SEVENTH_PRIZE(7, new PrizeRule(1, ANYWAY), 0L),
-    LOSER(8, new PrizeRule(0, ANYWAY), 0L);
+    WINNER(1, new PrizeRule(6, ANYWAY), Money.of(20000000000L)),
+    BONUS_WINNER(2, new PrizeRule(5, MATCH), Money.of(30000000L)),
+    THIRD_PRIZE(3, new PrizeRule(5, NO_MATCH), Money.of(1500000L)),
+    FOURTH_PRIZE(4, new PrizeRule(4, ANYWAY), Money.of(50000L)),
+    FIFTH_PRIZE(5, new PrizeRule(3, ANYWAY), Money.of(5000L)),
+    SIXTH_PRIZE(6, new PrizeRule(2, ANYWAY), Money.ZERO),
+    SEVENTH_PRIZE(7, new PrizeRule(1, ANYWAY), Money.ZERO),
+    LOSER(8, new PrizeRule(0, ANYWAY), Money.ZERO);
 
     private final int rank;
     private final PrizeRule prizeRule;
-    private final long money;
+    private final Money money;
 
-    Prize(int rank, PrizeRule prizeRule, long money) {
+    Prize(int rank, PrizeRule prizeRule, Money money) {
         this.rank = rank;
         this.prizeRule = prizeRule;
         this.money = money;
     }
 
-    public long getMoney() {
+    public Money getMoney() {
         return money;
     }
 

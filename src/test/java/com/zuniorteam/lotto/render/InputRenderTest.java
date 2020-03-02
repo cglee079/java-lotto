@@ -1,25 +1,24 @@
 package com.zuniorteam.lotto.render;
 
 import com.zuniorteam.lotto.core.Lotto;
-import com.zuniorteam.lotto.core.WinningLotto;
 import com.zuniorteam.lotto.vo.LottoNumber;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class InputRenderTest {
-
 
     @DisplayName("당첨번호 입력 변환")
     @ParameterizedTest
     @ValueSource(strings = {"1,2,3,4,5,6", "1, 2, 3, 4, 5, 6", "1,2, 3,4, 5, 6"})
-    void testGetWinningNumbers(String input){
+    void testGetWinningNumbers(String input) {
         //given
         final List<LottoNumber> expectWinningNumbers = new ArrayList<>();
         expectWinningNumbers.add(new LottoNumber(1));
@@ -38,4 +37,11 @@ class InputRenderTest {
         assertThat(lottoNumbers).containsAll(expectWinningNumbers);
     }
 
+    @DisplayName("수동번호 개수 반환, 음수 일 때")
+    @Test
+    void testGetNumberOfAppointLottos(){
+        assertThrows(IllegalArgumentException.class,  () -> InputRender.getNumerOfAppointLottos(-1));
+    }
+
 }
+
