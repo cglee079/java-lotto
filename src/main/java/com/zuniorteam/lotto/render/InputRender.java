@@ -48,4 +48,7 @@ public final class InputRender {
         return scanNumber;
     }
 
+    public static Money getInsertMoney(Integer scanMoney) {
+        return Money.of(scanMoney);
+    }
 }

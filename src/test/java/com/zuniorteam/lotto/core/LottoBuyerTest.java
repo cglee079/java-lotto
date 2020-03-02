@@ -1,5 +1,6 @@
 package com.zuniorteam.lotto.core;
 
+import com.zuniorteam.lotto.vo.Money;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -10,7 +11,6 @@ import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
 class LottoBuyerTest {
@@ -18,15 +18,15 @@ class LottoBuyerTest {
     @DisplayName("생성")
     @Test
     void testNewInstance01(){
-        assertDoesNotThrow(() -> new LottoBuyer(1000, Collections.emptyList()));
+        assertDoesNotThrow(() -> new LottoBuyer(Money.of(1000), Collections.emptyList()));
     }
 
     @DisplayName("생성, AssertError")
     @Test
     void testNewInstance02(){
         assertAll(
-                () -> assertThrows(AssertionError.class, () -> new LottoBuyer(-1, Collections.emptyList())),
-                () -> assertThrows(AssertionError.class, () -> new LottoBuyer(1000, null))
+                () -> assertThrows(AssertionError.class, () -> new LottoBuyer(null, Collections.emptyList())),
+                () -> assertThrows(AssertionError.class, () -> new LottoBuyer(Money.of(1000), null))
         );
     }
 
@@ -43,7 +43,7 @@ class LottoBuyerTest {
         given(winningLotto.match(lotto2)).willReturn(Prize.FOURTH_PRIZE);
 
         //when
-        final LottoBuyer lottoBuyer = new LottoBuyer(2000, Arrays.asList(lotto1, lotto2));
+        final LottoBuyer lottoBuyer = new LottoBuyer(Money.of(2000), Arrays.asList(lotto1, lotto2));
         final Map<Prize, Integer> result = lottoBuyer.checkWinning(winningLotto);
 
         //then

@@ -1,17 +1,15 @@
 package com.zuniorteam.lotto.core;
 
 import com.zuniorteam.lotto.util.CollectionUtil;
+import com.zuniorteam.lotto.vo.Money;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 
 public class LottoSeller {
 
-    public static final int LOTTO_PRICE = 1000;
+    public static final Money LOTTO_PRICE = Money.of(1000);
 
     private final LottoMachine lottoMachine;
 
@@ -21,12 +19,12 @@ public class LottoSeller {
         this.lottoMachine = lottoMachine;
     }
 
-    public List<Lotto> sell(int money, List<Lotto> appointLottos) {
+    public List<Lotto> sell(Money money, List<Lotto> appointLottos) {
         validate(money);
 
-        final int numberOfLottos = (money / LOTTO_PRICE) - appointLottos.size();
+        final long numberOfLottos = money.divideMoney(LOTTO_PRICE).amount() - appointLottos.size();
 
-        final List<Lotto> autoLottoNumbers = IntStream.range(0, numberOfLottos)
+        final List<Lotto> autoLottoNumbers = LongStream.range(0, numberOfLottos)
                 .mapToObj(i -> lottoMachine.generate())
                 .collect(Collectors.toList());
 
@@ -34,13 +32,9 @@ public class LottoSeller {
 
     }
 
-    private void validate(int money) {
-        if(money <= 0){
-            throw new IllegalArgumentException("금액은 0원 이상이어야합니다");
-        }
-
-        if (money % LOTTO_PRICE != 0) {
-            throw new IllegalArgumentException("금액이 나누어 떨어지지 않습니다");
+    private void validate(Money money) {
+        if(Objects.isNull(money)){
+            throw new IllegalArgumentException("금액이 null 입니다.");
         }
     }
 }

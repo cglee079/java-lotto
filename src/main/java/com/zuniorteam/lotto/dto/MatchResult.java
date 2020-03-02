@@ -12,7 +12,7 @@ public class MatchResult {
     public MatchResult(Prize prize, int lottoCount) {
         this.matchCount = prize.getMatchCount();
         this.hasBonus = prize.hasBonus();
-        this.prizeMoney = prize.getMoney();
+        this.prizeMoney = prize.getMoney().amount();
         this.lottoCount = lottoCount;
     }
 

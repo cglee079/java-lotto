@@ -1,18 +1,18 @@
 package com.zuniorteam.lotto.core;
 
+import com.zuniorteam.lotto.vo.Money;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.Mockito;
 
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.BDDMockito.given;
 
 class LottoSellerTest {
@@ -33,9 +33,10 @@ class LottoSellerTest {
     @DisplayName("로또 판매")
     @ParameterizedTest
     @ValueSource(ints = {1000, 2000, 3000})
-    void testSell01(int insertedMoney){
+    void testSell01(int insertedAmount){
+        final Money insertedMoney = Money.of(insertedAmount);
         //given
-        int expectSize = insertedMoney / LottoSeller.LOTTO_PRICE;
+        long expectSize = insertedMoney.divideMoney(LottoSeller.LOTTO_PRICE).amount();
         final LottoMachine lottoMachine = Mockito.mock(LottoMachine.class);
 
         final Lotto lotto = Mockito.mock(Lotto.class);
@@ -52,7 +53,7 @@ class LottoSellerTest {
     @Test
     void testSell02(){
         //given
-        final int insertedMoney = 3000;
+        final Money insertedMoney = Money.of(3000);
         final LottoMachine lottoMachine = Mockito.mock(LottoMachine.class);
 
         final Lotto appointLotto = Mockito.mock(Lotto.class);
@@ -66,16 +67,4 @@ class LottoSellerTest {
         assertThat(lottos).containsExactly(appointLotto, autoLotto, autoLotto);
     }
 
-    @DisplayName("로또 판매, 금액이 나눠어 떨어지지 않거나, 0인경우")
-    @ParameterizedTest
-    @ValueSource(ints = {0, 1231, 1999, 3001})
-    void testSell02(int insertedMoney){
-        //given
-        final LottoMachine lottoMachine = Mockito.mock(LottoMachine.class);
-
-        final Lotto lotto = Mockito.mock(Lotto.class);
-        given(lottoMachine.generate()).willReturn(lotto);
-
-        assertThrows(IllegalArgumentException.class, () ->  new LottoSeller(lottoMachine).sell(insertedMoney, Collections.emptyList()));
-    }
 }

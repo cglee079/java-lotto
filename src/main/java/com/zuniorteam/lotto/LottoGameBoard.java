@@ -6,6 +6,7 @@ import com.zuniorteam.lotto.render.InputRender;
 import com.zuniorteam.lotto.view.console.InputView;
 import com.zuniorteam.lotto.view.console.OutputView;
 import com.zuniorteam.lotto.vo.LottoNumber;
+import com.zuniorteam.lotto.vo.Money;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class LottoGameBoard {
     private final OutputView outputView = new OutputView();
 
     public void playGame() {
-        final Integer insertedMoney = inputView.scanMoney();
+        final Money insertedMoney = InputRender.getInsertMoney(inputView.scanMoney());
         final Integer countOfAppointLotto = InputRender.getCountOfAppointLotto(inputView.scanAppointLottoCount());
         final List<Lotto> appointLottos = InputRender.getAppointLottos(inputView.scanAppointLottos(countOfAppointLotto));
 
