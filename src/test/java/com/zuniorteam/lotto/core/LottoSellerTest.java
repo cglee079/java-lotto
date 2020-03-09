@@ -19,7 +19,7 @@ class LottoSellerTest {
     @DisplayName("생성")
     @Test
     void testNewInstance01() {
-        assertDoesNotThrow(() -> new LottoSeller(new LottoMachine()));
+        assertDoesNotThrow(() -> new LottoSeller(new LottoAutoMachine()));
     }
 
     @DisplayName("생성, 인자가 null")
@@ -36,13 +36,13 @@ class LottoSellerTest {
         //given
         final Money insertedMoney = Money.of(insertedAmount);
         long expectSize = insertedMoney.divideMoney(LottoSeller.LOTTO_PRICE).amount();
-        final LottoMachine lottoMachine = Mockito.mock(LottoMachine.class);
+        final LottoAutoMachine lottoAutoMachine = Mockito.mock(LottoAutoMachine.class);
 
         final Lotto lotto = Mockito.mock(Lotto.class);
-        given(lottoMachine.generate()).willReturn(lotto);
+        given(lottoAutoMachine.generate()).willReturn(lotto);
 
         //when
-        final List<Lotto> lottos = new LottoSeller(lottoMachine).sell(insertedMoney, Collections.emptyList());
+        final List<Lotto> lottos = new LottoSeller(lottoAutoMachine).sell(insertedMoney, Collections.emptyList());
 
         //then
         assertThat(lottos.size()).isEqualTo(expectSize);
@@ -53,14 +53,14 @@ class LottoSellerTest {
     void testSell02() {
         //given
         final Money insertedMoney = Money.of(3000);
-        final LottoMachine lottoMachine = Mockito.mock(LottoMachine.class);
+        final LottoAutoMachine lottoAutoMachine = Mockito.mock(LottoAutoMachine.class);
 
         final Lotto appointLotto = Mockito.mock(Lotto.class);
         final Lotto autoLotto = Mockito.mock(Lotto.class);
-        given(lottoMachine.generate()).willReturn(autoLotto);
+        given(lottoAutoMachine.generate()).willReturn(autoLotto);
 
         //when
-        final List<Lotto> lottos = new LottoSeller(lottoMachine).sell(insertedMoney, Collections.singletonList(appointLotto));
+        final List<Lotto> lottos = new LottoSeller(lottoAutoMachine).sell(insertedMoney, Collections.singletonList(appointLotto));
 
         //then
         assertThat(lottos).containsExactly(appointLotto, autoLotto, autoLotto);
@@ -71,24 +71,24 @@ class LottoSellerTest {
     void testSell03() {
         //given
         final Money insertedMoney = Money.ZERO;
-        final LottoMachine lottoMachine = Mockito.mock(LottoMachine.class);
+        final LottoAutoMachine lottoAutoMachine = Mockito.mock(LottoAutoMachine.class);
 
         final Lotto appointLotto = Mockito.mock(Lotto.class);
         final Lotto autoLotto = Mockito.mock(Lotto.class);
-        given(lottoMachine.generate()).willReturn(autoLotto);
+        given(lottoAutoMachine.generate()).willReturn(autoLotto);
 
         //when, then
         assertThrows(
                 RuntimeException.class,
-                () -> new LottoSeller(lottoMachine).sell(insertedMoney, Collections.singletonList(appointLotto)));
+                () -> new LottoSeller(lottoAutoMachine).sell(insertedMoney, Collections.singletonList(appointLotto)));
     }
 
     @DisplayName("로또 판매, null 주입")
     @Test
     void testSell04() {
         //given
-        final LottoMachine lottoMachine = Mockito.mock(LottoMachine.class);
-        final LottoSeller lottoSeller = new LottoSeller(lottoMachine);
+        final LottoAutoMachine lottoAutoMachine = Mockito.mock(LottoAutoMachine.class);
+        final LottoSeller lottoSeller = new LottoSeller(lottoAutoMachine);
 
         //when, then
         assertAll(
