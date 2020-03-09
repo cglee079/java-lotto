@@ -1,7 +1,6 @@
 package com.zuniorteam.lotto.vo;
 
 import java.util.Objects;
-import java.util.stream.IntStream;
 
 public class Money {
 

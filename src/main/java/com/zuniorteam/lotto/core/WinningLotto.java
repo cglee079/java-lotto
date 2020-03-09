@@ -2,8 +2,6 @@ package com.zuniorteam.lotto.core;
 
 import com.zuniorteam.lotto.vo.LottoNumber;
 
-import java.util.List;
-
 public class WinningLotto {
 
     private final Lotto winningLotto;

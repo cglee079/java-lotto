@@ -8,8 +8,6 @@ import com.zuniorteam.lotto.view.console.OutputView;
 import com.zuniorteam.lotto.vo.LottoNumber;
 import com.zuniorteam.lotto.vo.Money;
 
-import java.util.List;
-
 public class LottoGameBoard {
 
     private final LottoSeller lottoSeller = new LottoSeller(new LottoAutoMachine());
@@ -20,12 +18,12 @@ public class LottoGameBoard {
 
     public void playGame() {
         final Money insertedMoney = InputRender.getInsertMoney(inputView.scanMoney());
-        final Integer numberOfAppointLotto = InputRender.getNumerOfAppointLottos(inputView.scanNumberOfAppointLottos());
-        final List<Lotto> appointLottos = InputRender.getAppointLottos(inputView.scanAppointLottos(numberOfAppointLotto));
+        final Integer numberOfAppointLotto = InputRender.getNumberOfAppointLottos(inputView.scanNumberOfAppointLottos());
+        final Lottos appointLottos = InputRender.getAppointLottos(inputView.scanAppointLottos(numberOfAppointLotto));
 
         final LottoBuyer lottoBuyer = new LottoBuyer(insertedMoney, lottoSeller.sell(insertedMoney, appointLottos));
 
-        outputView.printLottos(lottoBuyer.getLottoNumbers(), numberOfAppointLotto);
+        outputView.printLottos(lottoBuyer.getAllLottoNumbers(), numberOfAppointLotto);
 
         final Lotto winningLotto = InputRender.getWinningLotto(inputView.scanWinningNumbers());
         final LottoNumber bonusNumber = InputRender.getBonusNumber(inputView.scanBonusNumber());
