@@ -9,15 +9,14 @@ import java.util.TreeMap;
 import java.util.stream.Stream;
 
 import static java.util.Comparator.comparingInt;
-import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toMap;
 
 public class LottoBuyer {
 
     private final Money insertedMoney;
-    private final List<Lotto> lottos;
+    private final Lottos lottos;
 
-    public LottoBuyer(Money insertedMoney, List<Lotto> lottos) {
+    public LottoBuyer(Money insertedMoney, Lottos lottos) {
         assert insertedMoney != null;
         assert lottos != null;
 
@@ -32,7 +31,7 @@ public class LottoBuyer {
     public Map<Prize, Integer> checkWinning(WinningLotto winningLotto) {
         final Map<Prize, Integer> results = initResults();
 
-        for (Lotto lotto : lottos) {
+        for (Lotto lotto : lottos.getLottos()) {
             final Prize prize = winningLotto.match(lotto);
             results.put(prize, results.get(prize) + 1);
         }
@@ -50,9 +49,7 @@ public class LottoBuyer {
         return sortedResults;
     }
 
-    public List<List<LottoNumber>> getLottoNumbers() {
-        return lottos.stream()
-                .map(Lotto::getLottoNumbers)
-                .collect(toList());
+    public List<List<LottoNumber>> getAllLottoNumbers() {
+        return lottos.getAllLottoNumbers();
     }
 }

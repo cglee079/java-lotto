@@ -7,7 +7,7 @@ import java.util.*;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.IntStream.*;
 
-public class LottoMachine {
+public class LottoAutoMachine {
 
     private static final List<LottoNumber> RESERVE_LOTTO_NUMBERS;
 

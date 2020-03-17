@@ -1,6 +1,7 @@
 package com.zuniorteam.lotto.render;
 
 import com.zuniorteam.lotto.core.Lotto;
+import com.zuniorteam.lotto.core.Lottos;
 import com.zuniorteam.lotto.vo.LottoNumber;
 import com.zuniorteam.lotto.vo.Money;
 
@@ -24,10 +25,11 @@ public final class InputRender {
         return new LottoNumber(bonusNumber);
     }
 
-    public static List<Lotto> getAppointLottos(List<String> lines) {
-        return lines.stream()
+    public static Lottos getAppointLottos(List<String> lines) {
+        final List<Lotto> appointLottos = lines.stream()
                 .map(InputRender::getLotto)
                 .collect(toList());
+        return new Lottos(appointLottos);
     }
 
     private static Lotto getLotto(String line) {
@@ -39,7 +41,7 @@ public final class InputRender {
 
     }
 
-    public static Integer getNumerOfAppointLottos(Integer scanNumber) {
+    public static Integer getNumberOfAppointLottos(Integer scanNumber) {
         if (scanNumber < 0) {
             throw new IllegalArgumentException("적절하지 않은 수동 넘버 개수입니다.");
         }

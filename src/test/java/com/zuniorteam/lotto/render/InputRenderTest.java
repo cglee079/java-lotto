@@ -40,7 +40,7 @@ class InputRenderTest {
     @DisplayName("수동번호 개수 반환, 음수 일 때")
     @Test
     void testGetNumberOfAppointLottos(){
-        assertThrows(IllegalArgumentException.class,  () -> InputRender.getNumerOfAppointLottos(-1));
+        assertThrows(IllegalArgumentException.class,  () -> InputRender.getNumberOfAppointLottos(-1));
     }
 
 }

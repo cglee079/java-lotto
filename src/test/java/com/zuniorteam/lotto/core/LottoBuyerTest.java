@@ -18,14 +18,14 @@ class LottoBuyerTest {
     @DisplayName("생성")
     @Test
     void testNewInstance01(){
-        assertDoesNotThrow(() -> new LottoBuyer(Money.of(1000), Collections.emptyList()));
+        assertDoesNotThrow(() -> new LottoBuyer(Money.of(1000), new Lottos(Collections.emptyList())));
     }
 
     @DisplayName("생성, AssertError")
     @Test
     void testNewInstance02(){
         assertAll(
-                () -> assertThrows(AssertionError.class, () -> new LottoBuyer(null, Collections.emptyList())),
+                () -> assertThrows(AssertionError.class, () -> new LottoBuyer(null, new Lottos(Collections.emptyList()))),
                 () -> assertThrows(AssertionError.class, () -> new LottoBuyer(Money.of(1000), null))
         );
     }
@@ -42,7 +42,7 @@ class LottoBuyerTest {
         given(winningLotto.match(lotto2)).willReturn(Prize.FOURTH_PRIZE);
 
         //when
-        final LottoBuyer lottoBuyer = new LottoBuyer(Money.of(2000), Arrays.asList(lotto1, lotto2));
+        final LottoBuyer lottoBuyer = new LottoBuyer(Money.of(2000), new Lottos(Arrays.asList(lotto1, lotto2)));
         final Map<Prize, Integer> result = lottoBuyer.checkWinning(winningLotto);
 
         //then

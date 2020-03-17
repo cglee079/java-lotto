@@ -22,7 +22,7 @@ public class Lotto {
     }
 
     public List<LottoNumber> getLottoNumbers() {
-        return new ArrayList<>(this.lottoNumbers);
+        return Collections.unmodifiableList(new ArrayList<>(this.lottoNumbers));
     }
 
     public boolean contains(LottoNumber bonusNumber) {
