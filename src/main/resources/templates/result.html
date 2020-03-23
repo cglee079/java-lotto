@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -72,24 +72,17 @@ body {
 				<th><h3 class="text-center">당첨 통계</h3></th>
 			</thead>
 		<tbody>
-			<tr>
-				<th>3개 일치 (5000원)- 3개</th>
-			</tr>
-			<tr>
-				<th>4개 일치 (50000원)- 1개</th>
-			</tr>
-			<tr>
-				<th>5개 일치 (1500000원)- 0개</th>
-			</tr>
- 			<tr>
-				<th>5개 일치, 보너스 볼 일치(30000000원)- 0개</th>
-			</tr>
-			<tr>
-				<th>6개 일치 (2000000000원)- 0개</th>
+			<tr th:each="matchResult : ${lottoResult.matchResults}">
+				<th>
+					<span th:text="${matchResult.matchCount}"></span>개 일치,
+					<span th:if="${matchResult.hasBonus}">보너스 볼 일치</span>
+					(<span th:text="${matchResult.prizeMoney}"></span>원)-
+					<span th:text="${matchResult.lottoCount}"></span>개
+				</th>
 			</tr>
 		</tbody>
 		<tfoot>
-			<th><h4 class="text-center">총 수익률은 20%입니다.</h4></th>
+		<th><h4 class="text-center">총 수익률은 <span th:text="${lottoResult.winPercent}"></span>%입니다.</h4></th>
 		</tfoot>
 	</table>
 </pre>
