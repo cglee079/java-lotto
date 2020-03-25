@@ -27,8 +27,10 @@ public final class InputRender {
 
     public static Lottos getLottos(List<String> lines) {
         final List<Lotto> appointLottos = lines.stream()
+                .filter(l -> l.length() > 0)
                 .map(InputRender::getLotto)
                 .collect(toList());
+        
         return new Lottos(appointLottos);
     }
 
