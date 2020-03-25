@@ -13,7 +13,7 @@ import spark.Route;
 import java.util.HashMap;
 import java.util.List;
 
-import static com.zuniorteam.lotto.web.render.TemplateEngine.render;
+import static com.zuniorteam.lotto.web.render.CustomTemplateEngine.render;
 import static java.util.stream.Collectors.toList;
 
 public class PostMatchLottoRoute implements Route {
@@ -24,8 +24,6 @@ public class PostMatchLottoRoute implements Route {
     private static final String PARAM_WINNING_NUMBER = "winningNumber";
     private static final String VIEW_NAME = "result";
 
-    private final LottoOffice lottoOffice = new LottoOffice();
-
     @Override
     public Object handle(Request request, Response response) {
         final Money insertedMoney = InputRender.getInsertMoney(getInputMoney(request));
@@ -34,7 +32,11 @@ public class PostMatchLottoRoute implements Route {
         final Lotto winningNumber = InputRender.getWinningLotto(getWinningNumber(request));
         final LottoNumber bonusNumber = InputRender.getBonusNumber(getBonusNumber(request));
 
-        final LottoResult lottoResult = lottoOffice.getLottoResult(new LottoBuyer(insertedMoney, buyLottos), new WinningLotto(winningNumber, bonusNumber));
+        final LottoOffice lottoOffice = new LottoOffice();
+        final LottoBuyer lottoBuyer = new LottoBuyer(insertedMoney, buyLottos);
+        final WinningLotto winningLotto = new WinningLotto(winningNumber, bonusNumber);
+
+        final LottoResult lottoResult = lottoOffice.getLottoResult(lottoBuyer, winningLotto);
 
         final HashMap<String, Object> model = new HashMap<>();
         model.put("lottoResult", lottoResult);
@@ -42,12 +44,8 @@ public class PostMatchLottoRoute implements Route {
         return render(model, VIEW_NAME);
     }
 
-    private Integer getBonusNumber(Request request) {
-        return Integer.valueOf(request.queryParams(PARAM_BONUS_NUMBER));
-    }
-
-    private String getWinningNumber(Request request) {
-        return request.queryParams(PARAM_WINNING_NUMBER);
+    private Integer getInputMoney(Request request) {
+        return Integer.valueOf(request.queryParams(PARAM_INPUT_MONEY));
     }
 
     private List<String> getBuyLottos(Request request) {
@@ -56,7 +54,13 @@ public class PostMatchLottoRoute implements Route {
                 .collect(toList());
     }
 
-    private Integer getInputMoney(Request request) {
-        return Integer.valueOf(request.queryParams(PARAM_INPUT_MONEY));
+    private String getWinningNumber(Request request) {
+        return request.queryParams(PARAM_WINNING_NUMBER);
     }
+
+    private Integer getBonusNumber(Request request) {
+        return Integer.valueOf(request.queryParams(PARAM_BONUS_NUMBER));
+    }
+
+
 }
