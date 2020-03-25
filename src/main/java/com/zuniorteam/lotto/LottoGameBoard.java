@@ -19,7 +19,7 @@ public class LottoGameBoard {
     public void playGame() {
         final Money insertedMoney = InputRender.getInsertMoney(inputView.scanMoney());
         final Integer numberOfAppointLotto = InputRender.getNumberOfAppointLottos(inputView.scanNumberOfAppointLottos());
-        final Lottos appointLottos = InputRender.getAppointLottos(inputView.scanAppointLottos(numberOfAppointLotto));
+        final Lottos appointLottos = InputRender.getLottos(inputView.scanAppointLottos(numberOfAppointLotto));
 
         final LottoBuyer lottoBuyer = new LottoBuyer(insertedMoney, lottoSeller.sell(insertedMoney, appointLottos));
 

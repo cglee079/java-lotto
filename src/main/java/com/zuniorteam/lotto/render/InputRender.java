@@ -25,10 +25,12 @@ public final class InputRender {
         return new LottoNumber(bonusNumber);
     }
 
-    public static Lottos getAppointLottos(List<String> lines) {
+    public static Lottos getLottos(List<String> lines) {
         final List<Lotto> appointLottos = lines.stream()
+                .filter(l -> l.length() > 0)
                 .map(InputRender::getLotto)
                 .collect(toList());
+        
         return new Lottos(appointLottos);
     }
 
